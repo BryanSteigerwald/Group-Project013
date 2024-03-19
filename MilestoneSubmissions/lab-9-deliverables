@@ -20,16 +20,45 @@ Our application, named "FindMyClass", is designed to streamline the process of e
 Through FindMyClass, users can effortlessly search for courses by entering keywords, course codes, or specific criteria. The application will then retrieve and display comprehensive information about each course, including its title, description, instructor, schedule, prerequisites, and any other relevant details. This functionality not only simplifies the process of finding courses but also enables users to make well-informed decisions about their academic pursuits. Whether students are planning their course schedules, exploring new subjects, or seeking prerequisites for advanced classes, FindMyClass will serve as a valuable tool in their academic journey.
 
 6. Vision Statement
-For students at CU Boulder who are frustrated by lack of streamlined navigation when seeing course options, FindMyClass is an application that simplifies course search and selection. Unlike the 'Search Classes' webpage of CU Boulder, our product aims to provide students with easily nagivatable course details that allow for them to make informed academic decisions with ease.
+For students at CU Boulder who are frustrated by the lack of streamlined navigation when seeing course options, FindMyClass is an application that simplifies course search and selection. Unlike the 'Search Classes' webpage of CU Boulder, our product aims to provide students with easily identifiable course details that allow them to make informed academic decisions with ease.
 
 7. Version Control
 https://github.com/BryanSteigerwald/Group-Project013.git
 
 8. Development Methodology
-Using Scrum agile methodology, and the github projects manager.
+The application aims to streamline the process of discovering and enrolling in courses by providing a user-friendly interface and comprehensive search functionalities.
+
+Key Features to Work On:
+a. User Registration and Authentication System
+b. Integration with a Course Database for Class Search
+c. Frontend UI Development for Intuitive User Experience
+d. Backend API Development for Handling Data Requests
+e. Communication Integration with Discord for Team Collaboration
+f. Integration with Zoom for Virtual Classroom Access
+g. Testing and Quality Assurance Procedures
+h. Deployment and Hosting Setup
+i. Documentation and User Guides Creation
+
+Methodology Overview:
+We will adopt a Scrum methodology for project management, organizing our development process into iterative sprints. Each sprint will last one to two weeks and will focus on delivering specific features or user stories.
+
+Scrum Meetings:
+Weekly Scrum meetings will be conducted to synchronize team members, discuss progress, identify any blockers, and plan the week's tasks. These meetings will ensure continuous communication and alignment across the team.
+
+GitHub Projects Usage:
+GitHub Projects will serve as our project management tool, utilizing a Google Document Task Tracker to monitor and update the progress of tasks and user stories. This tracker will provide a centralized location for team members to collaborate on task status and make necessary adjustments.
+
+Communication and Collaboration:
+Discord will be utilized for real-time communication among team members, allowing for quick discussions, updates, and problem-solving. Zoom will be integrated for virtual meetings, particularly for demos, retrospectives, and Scrum meetings.
+
+Adaptation and Continuous Improvement:
+Regular retrospectives at the end of each sprint will provide opportunities for the team to reflect on their processes, identify areas for improvement, and make necessary adjustments. This continuous feedback loop will ensure that we adapt to evolving requirements and deliver a high-quality application.
+
+Conclusion:
+By leveraging Scrum methodology, Discord, and Zoom for communication and collaboration, along with a Google Document Task Tracker in GitHub Projects, we are confident in our ability to successfully develop and deliver the application within the specified timeline, meeting the needs of our users effectively.
 
 9. Communication Plan
-Our team will utilize Discord as our primary communication platform throughout the course of the project. We also have a google doc task tracker.
+Our team intends to use Discord as our main communication platform for coordinating work and exchanging information among team members. This will be supplemented by a Google Document Task Tracker for managing tasks and monitoring progress.
 
 10. Meeting Plan
 Tuesdays: 3:15pm-3:45pm, Remote, Zoom
