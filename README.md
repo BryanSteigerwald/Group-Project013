@@ -1,2 +1,1 @@
-# Group-Project013
-Group Project repository
+# Group Project: FindMyClass
