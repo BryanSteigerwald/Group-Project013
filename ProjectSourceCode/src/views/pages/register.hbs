@@ -1,1 +1,30 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        #username, #password {
+            border-radius: 8px;
+            padding: 8px;
+            width: 450px;
+        }
+        form, h1, p {
+            margin-left: 33%;
+            margin-right: 33%;
+        }
+    </style>
+</head>
 
+<body>
+    <h1>Register</h1>
+    <form action="/register" method="POST">
+    <label for="username">Username</label><br>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password</label><br>
+    <input type="password" id="password" name="password"><br><br>
+    <input type="submit" class="btn btn-primary" value="Register"></form><p></p>
+    <p>Already have an account? <a href="/login">Login</a></p>
+</body>
+</html>
