@@ -10,7 +10,7 @@ CREATE TABLE classes(
     name VARCHAR(50) NOT NULL,
     location VARCHAR(50) NOT NULL,
     modality VARCHAR(12) NOT NULL,
-    schedule VARCHAR(100) NOT NULL,
+    schedule VARCHAR(100) NOT NULL
 );
 
 DROP TABLE IF EXISTS user_classes;
