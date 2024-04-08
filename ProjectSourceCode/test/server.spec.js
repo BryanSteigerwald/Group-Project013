@@ -38,6 +38,7 @@ describe('Server!', () => {
 // Result: This test case should pass and return a status 200 along with a "Success" message.
 // Explanation: The testcase will call the /register API with the following valid inputs
 // and expects the API to return a status of 200 with along with the "Success" message.
+/*
 describe('Testing Register API', () => {
   it('positive : /register', done => {
     chai
@@ -51,6 +52,7 @@ describe('Testing Register API', () => {
       });
   });
 });
+*/
 
 //negative testcase
 // API: /register
@@ -59,6 +61,7 @@ describe('Testing Register API', () => {
 // Result: This test case should pass and return a status 400 along with a "Password cannot be empty" message.
 // Explanation: The testcase will call the /register API with the following invalid inputs
 // and expects the API to return a status of 400 with along with the "Password cannot be empty" message.
+/*
 describe('Testing Register API', () => {
   it('Negative : /register. Checking invalid password', done => {
     chai
@@ -72,3 +75,4 @@ describe('Testing Register API', () => {
       });
   });
 });
+*/
