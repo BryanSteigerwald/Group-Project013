@@ -84,6 +84,10 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
   res.render('pages/register');
 });
+
+app.get('/classes', (req, res) => {
+  res.render('pages/classes');
+});
 // *****************************************************
 // <!--Dummy API -->
 // *****************************************************
@@ -92,43 +96,58 @@ app.get('/welcome', (req, res) => {
   });
 // -------------------------------------  ROUTES for register.hbs   ----------------------------------------------
 app.post('/register', async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  if (!username || !password) {
+    return res.status(400).send({ message: 'Username and password cannot be blank' });
+  }
+
   const hash = await bcrypt.hash(req.body.password, 10);
 
-  if (hash.err) { console.log('error');}
+  if (hash.err) { 
+    console.log('error');
+    res.status(400).send({ message: 'Error occurred while hashing password' });
+  }
   else {console.log('check');
 
   db.tx(async t=> {
     await t.any('INSERT INTO users (username, password) VALUES ($1, $2);', [req.body.username, hash]);
   })
+  res.status(200).redirect('/login');
 
-  res.redirect('/login');}
+  }
 });
 
 // -------------------------------------  ROUTES for login.hbs   ----------------------------------------------
 app.post('/login', async (req, res) => {
   try {
-    var username = req.body.username;
-    var user = `SELECT password FROM users WHERE username = '${username}';`;
+    const username = req.body.username;
+    const password = req.body.password;
+
+    if (!username || !password) {
+      return res.status(400).render('pages/login', { error: 'Username and password cannot be blank' });
+    }
+
+    const user = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+
+    if (!user) {
+      return res.status(401).render('pages/login', { error: 'User not found' });
+    }
     
-    const match = await db.any(user);
-    // console.log('match', match);
-    
-    const pass = await bcrypt.compare(req.body.password, match[0].password);
-    // console.log('pass', pass);
-    
-    if(pass){
-      req.session.user = match;
+    const passMatch = await bcrypt.compare(password, user.password);
+
+    if (passMatch) {
+      req.session.user = user;
       req.session.save();
-      res.redirect('/discover');
+      return res.status(200).redirect('/discover');
+    } else {
+      return res.status(401).render('pages/login', { error: 'Incorrect password' });
     }
-    else{
-      const alert = "Incorrect Username or Password.";
-      res.render('pages/login');
-    }
+  } catch (error) {
+    console.error('Error occurred while logging in:', error.message);
+    res.status(500).render('pages/login', { error: 'Internal server error' });
   }
-  catch(error){
-    res.redirect('/register');
-  };
 });
 
 const auth = (req, res, next) => {

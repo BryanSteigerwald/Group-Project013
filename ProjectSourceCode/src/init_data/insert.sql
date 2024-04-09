@@ -496,3 +496,5 @@ Additional Information: Departmental Category: Software Engineering');
 INSERT INTO classes (class_id, name, description, info) VALUES ('CSCI 7900', 'CSCI 7900 (1-6) Doctoral Level Independent Study', 'For doctoral students.', 'Repeatable: Repeatable for up to 6.00 total credit hours. Allows multiple enrollment in term.
 Requisites: Restricted to graduate students only.
 Additional Information: Departmental Category: General Computer Science');
+
+
