@@ -1,0 +1,36 @@
+1. User should be able to register with valid non-blank inputs, and not register with invalid inputs. works with inputs which will go into the users database. 
+User activity: the User should go to the registration page, input a non-blank input, and then click register button, then repeat with blank inputs.
+test input include: username and passwords that should both pass, and also some that should not pass like full blank ones.
+the enviorment used: is localhost to do some easy testing on the local server.
+The test results: the page redirecting to login with no errors, 
+and if the input is invalid then a form description will appear and describe the error without redirecting.
+Testers: development team members which are responsible for working on and testing this feild. 
+should execute tests, and share feedback about possible issues or additions.
+Risks: 
+Invalid Input Handling: If the application fails to properly handle invalid inputs, it may allow registration with blank or invalid usernames and passwords.
+2. User should be able to search classes from the database using the searchbar input and return valid classes.
+User activity: Navigate to class search page, input a valid class like "Software Development Methods and Tools" or "CSCI 3308", click search.
+Test inputs: Search Query for what your looking for example: "Software Development Methods and Tools".
+Do the same then with invalid classes that may not exist, to make sure it is seacrhing specific querys.
+Test Enviorment: cloud computing using querys this allows for searching through classes easily.
+Test results: if the search displays a class that matches the query then its passed, otherwise an error is displayed.
+Testers: development team members along with possible use of beta testers that would allow for a broad array of people to test this major application feature.
+They should type in a query, then click search and report back with feedback based on the output.
+Risks:
+Incorrect Search Results: Inadequate search algorithms or database indexing may result in incorrect or irrelevant classes being returned.
+3. User should be able to see the course details of classes.
+User activity: click on a class when searching, Should then be able to see course details.
+Test inputs: Selected class is the input, and it should then display the details.
+Test Enviorment: Localhost is the enviroment and tests will be conducted on the local server.
+Test results: the result should be all course details being displayed and correct for that class.
+Testers: development team members to test that the details align with whats in the database we created for the classes.
+Risks: 
+Data Integrity: Inaccurate or incomplete data in the database could lead to incorrect course details being displayed.
+4. User can review classes added using the search in the class shopping cart.
+User activity: navigate to classes page, enter a query, click search, select classes,add classes to cart, check cart to view, then check if you can also remove classes.
+Test inputs: search query to add classes then check shoppingcarts to see if classes are added.
+Test Enviorment: Cloud Enviorment and localhost Enviorment so that we can chck the validity of classes and if the shoppingcart page is working.
+Test results: classes can be viewed, removed and also can check details just like the search. any invalid values on the list and it is considered failed.
+Testers: Users who will interact with the app just like with the search.
+Risks: 
+Data Integrity: Issues with data synchronization between the shopping cart and the database could lead to discrepancies in the list of classes displayed.
