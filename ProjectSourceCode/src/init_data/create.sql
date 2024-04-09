@@ -7,9 +7,9 @@ CREATE TABLE users(
 DROP TABLE IF EXISTS classes;
 CREATE TABLE classes(
     class_id VARCHAR(9) PRIMARY KEY NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    description VARCHAR(1000) NOT NULL,
-    info VARCHAR(1000) NOT NULL
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(2000) NOT NULL,
+    info VARCHAR(2000) NOT NULL
 );
 
 DROP TABLE IF EXISTS user_classes;
