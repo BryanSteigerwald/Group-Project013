@@ -8,9 +8,8 @@ DROP TABLE IF EXISTS classes;
 CREATE TABLE classes(
     class_id VARCHAR(9) PRIMARY KEY NOT NULL,
     name VARCHAR(50) NOT NULL,
-    location VARCHAR(50) NOT NULL,
-    modality VARCHAR(12) NOT NULL,
-    schedule VARCHAR(100) NOT NULL
+    description VARCHAR(1000) NOT NULL,
+    info VARCHAR(1000) NOT NULL,
 );
 
 DROP TABLE IF EXISTS user_classes;

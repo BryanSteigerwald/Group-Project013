@@ -1450,6 +1450,4 @@ Repeatable: Repeatable for up to 6.00 total credit hours. Allows multiple enroll
 Requisites: Restricted to graduate students only.
 Additional Information: Departmental Category: General Computer Science
 
-CSCI 8990 (1-10) Doctoral Dissertation
-
-Investigates some specialized field of computer science. Approved and supervised by faculty members.
+CSCI
