@@ -51,7 +51,6 @@ describe('Testing Register API', () => {
   });
 });
 
-
 //negative testcase
 // API: /register
 // Input: {username: 'testuser2', password: ''}
