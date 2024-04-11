@@ -199,7 +199,9 @@ app.post('/classes/add', async (req, res) => {
 
       await db.none('INSERT INTO user_classes (username, class_id) VALUES ($1, $2)', [username, class_id]);
       
-      res.status(200).send({ success: true, message: 'Class added successfully' });
+      res.render('pages/classes', { 
+        message: 'Class added successfully'
+      });
   } catch (error) {
       console.error('Error occurred while adding class to user_classes:', error);
       res.status(500).send({ success: false, error: 'Internal server error' });

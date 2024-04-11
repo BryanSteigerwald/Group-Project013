@@ -1,9 +1,11 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Registration</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -17,7 +19,7 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            margin: 80px auto;
+            margin: 20px auto;
             padding: 40px;
         }
 
@@ -76,12 +78,21 @@
         a:hover {
             text-decoration: underline;
         }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1>Login</h1>
+        <img src="https://www.usnews.com/dims4/USNEWS/53fab75/17177859217/resize/800x540%3E/quality/85/?url=https%3A%2F%2Fmedia.beam.usnews.com%2Fb7%2F029f7721431e45fe47d6a961289c63%2FCUBouder_Campuslife1.JPG" alt="University Campus Image" width="200" height="210">
         <form action="/login" method="POST">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="Enter your username" required>
