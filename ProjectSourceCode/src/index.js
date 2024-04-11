@@ -85,6 +85,18 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
   res.render('pages/register');
 });
+
+app.get('/classes', (req, res) => {
+  res.render('pages/classes');
+});
+
+app.get('/home', (req, res) => {
+  res.render('pages/home');
+});
+
+app.get('/shoppingcart', (req, res) => {
+  res.render('pages/shoppingcart');
+});
 // *****************************************************
 // <!--Dummy API -->
 // *****************************************************
@@ -93,43 +105,58 @@ app.get('/welcome', (req, res) => {
   });
 // -------------------------------------  ROUTES for register.hbs   ----------------------------------------------
 app.post('/register', async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  if (!username || !password) {
+    return res.status(400).send({ message: 'Username and password cannot be blank' });
+  }
+
   const hash = await bcrypt.hash(req.body.password, 10);
 
-  if (hash.err) { console.log('error');}
+  if (hash.err) { 
+    console.log('error');
+    res.status(400).send({ message: 'Error occurred while hashing password' });
+  }
   else {console.log('check');
 
   db.tx(async t=> {
     await t.any('INSERT INTO users (username, password) VALUES ($1, $2);', [req.body.username, hash]);
   })
+  res.status(200).redirect('/login');
 
-  res.redirect('/login');}
+  }
 });
 
 // -------------------------------------  ROUTES for login.hbs   ----------------------------------------------
 app.post('/login', async (req, res) => {
   try {
-    var username = req.body.username;
-    var user = `SELECT password FROM users WHERE username = '${username}';`;
+    const username = req.body.username;
+    const password = req.body.password;
+
+    if (!username || !password) {
+      return res.status(400).render('pages/login', { error: 'Username and password cannot be blank' });
+    }
+
+    const user = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+
+    if (!user) {
+      return res.status(401).render('pages/login', { error: 'User not found' });
+    }
     
-    const match = await db.any(user);
-    // console.log('match', match);
-    
-    const pass = await bcrypt.compare(req.body.password, match[0].password);
-    // console.log('pass', pass);
-    
-    if(pass){
-      req.session.user = match;
+    const passMatch = await bcrypt.compare(password, user.password);
+
+    if (passMatch) {
+      req.session.user = user;
       req.session.save();
-      res.redirect('/discover');
+      return res.status(200).redirect('/classes');
+    } else {
+      return res.status(401).render('pages/login', { error: 'Incorrect password' });
     }
-    else{
-      const alert = "Incorrect Username or Password.";
-      res.render('pages/login');
-    }
+  } catch (error) {
+    console.error('Error occurred while logging in:', error.message);
+    res.status(500).render('pages/login', { error: 'Internal server error' });
   }
-  catch(error){
-    res.redirect('/register');
-  };
 });
 
 const auth = (req, res, next) => {
@@ -140,6 +167,47 @@ const auth = (req, res, next) => {
 };
 
 app.use(auth);
+
+// -------------------------------------  ROUTES for classes.hbs   ----------------------------------------------
+const search_classes_query = "SELECT * FROM classes WHERE name LIKE $1";
+
+app.get('/classes/search', (req, res) => {
+    const searchTerm = req.query.term;
+
+    db.any(search_classes_query, [`%${searchTerm}%`])
+        .then(classes => {
+            res.render('pages/classes', { classes, searchTerm });
+        })
+        .catch(err => {
+            res.render('pages/error', { message: err.message });
+        });
+});
+
+app.post('/classes/add', async (req, res) => {
+  try {
+      const { class_id } = req.body;
+
+      if (!class_id) {
+          return res.status(400).send({ error: 'Missing class_id in request body' });
+      }
+
+      const username = req.session.user.username;
+
+      const existingClass = await db.oneOrNone('SELECT * FROM user_classes WHERE username = $1 AND class_id = $2', [username, class_id]);
+      if (existingClass) {
+          return res.status(400).send({ error: 'Class already added' });
+      }
+
+      await db.none('INSERT INTO user_classes (username, class_id) VALUES ($1, $2)', [username, class_id]);
+      
+      res.render('pages/classes', { 
+        message: 'Class added successfully'
+      });
+  } catch (error) {
+      console.error('Error occurred while adding class to user_classes:', error);
+      res.status(500).send({ success: false, error: 'Internal server error' });
+  }
+});
 
 // -------------------------------------  ROUTES for logout.hbs   ----------------------------------------------
 app.get('/logout', (req, res) => {
