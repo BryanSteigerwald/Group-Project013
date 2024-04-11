@@ -1,0 +1,30 @@
+<div class="container">
+        <h1>User Profile</h1>
+        <div class="profile-info">
+            <p><strong>Name:</strong> <span id="user-name"></span></p>
+            <p><strong>Email:</strong> <span id="user-email"></span></p>
+            <p><strong>Role:</strong> <span id="user-role"></span></p>
+            <p><strong>Classes:</strong> <span id="user-classes"></span></p>
+        </div>
+    </div>
+
+
+    <script>
+        // test data
+        var userData = {
+            name: "John Doe",
+            email: "john@example.com",
+            role: "Student",
+            classes: ["Math", "Science", "History"]
+        };
+
+        function updateProfile() {
+            document.getElementById("user-name").textContent = userData.name;
+            document.getElementById("user-email").textContent = userData.email;
+            document.getElementById("user-role").textContent = userData.role;
+            document.getElementById("user-classes").textContent = userData.classes.join(", ");
+        }
+
+        // when page loads, update profile
+        window.onload = updateProfile;
+    </script>

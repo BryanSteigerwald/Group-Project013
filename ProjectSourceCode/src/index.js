@@ -73,8 +73,9 @@ app.use(
 // *****************************************************
 // <!-- Section 4 : API Routes -->
 // *****************************************************
+
 app.get('/', (req, res) => {
-  res.redirect('/register');
+  res.render('pages/home');
 });
 
 app.get('/login', (req, res) => {
