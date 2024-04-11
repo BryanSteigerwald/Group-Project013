@@ -85,9 +85,44 @@ app.get('/register', (req, res) => {
   res.render('pages/register');
 });
 
+
+const fetchRecommendedClasses = (req, res, next) => {
+  if (req.session.user) {
+    const username = req.session.user.username;
+    const recommended_classes_query = `
+      SELECT c.* 
+      FROM classes c
+      JOIN (
+          SELECT SUBSTRING(class_id, 1, 6) AS prefix 
+          FROM user_classes 
+          WHERE username = $1
+          LIMIT 7
+      ) uc ON c.name LIKE CONCAT(uc.prefix, '%');`;
+
+    db.any(recommended_classes_query, [username])
+      .then(recommended => {
+        // Attach recommended classes to response locals
+        res.locals.recommendedClasses = recommended;
+        next(); // Proceed to the next middleware
+      })
+      .catch(err => {
+        res.locals.recommendedClasses = []; // Set empty array in case of error
+        next(); // Proceed to the next middleware
+      });
+  } else {
+    // If user is not logged in, set recommendedClasses to empty array
+    res.locals.recommendedClasses = [];
+    next(); // Proceed to the next middleware
+  }
+};
+
+// Apply the middleware to all routes
+app.use(fetchRecommendedClasses);
+
 app.get('/classes', (req, res) => {
-  res.render('pages/classes');
+    res.render('pages/classes')
 });
+
 
 app.get('/home', (req, res) => {
   res.render('pages/home');
