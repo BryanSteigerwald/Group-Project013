@@ -97,6 +97,10 @@ app.get('/home', (req, res) => {
 app.get('/shoppingcart', (req, res) => {
   res.render('pages/shoppingcart');
 });
+
+app.get('/userprofile', (req, res) => {
+  res.render('pages/userprofile');
+});
 // *****************************************************
 // <!--Dummy API -->
 // *****************************************************
@@ -149,7 +153,7 @@ app.post('/login', async (req, res) => {
     if (passMatch) {
       req.session.user = user;
       req.session.save();
-      return res.status(200).redirect('/classes');
+      return res.status(200).redirect('/home');
     } else {
       return res.status(401).render('pages/login', { error: 'Incorrect password' });
     }
