@@ -8,10 +8,22 @@
     <title>Registration</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            font-family: Georgia, serif;
+            background-color: #000;
             margin: 0;
             padding: 0;
+        }
+
+        .navbar {
+            background-color: #D2B48C;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            color: #000;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
         }
 
         .container {
@@ -23,7 +35,7 @@
             padding: 40px;
         }
 
-        h1 {
+        h4 {
             text-align: center;
             color: #333;
             margin-bottom: 20px;
@@ -44,7 +56,7 @@
             margin-bottom: 20px;
             border-radius: 6px;
             border: 1px solid #ccc;
-            font-size: 16px;
+            font-size: 10 px;
             box-sizing: border-box;
         }
 
@@ -91,8 +103,8 @@
 
 <body>
     <div class="container">
-        <h1>Registration</h1>
-        <img src="https://www.usnews.com/dims4/USNEWS/53fab75/17177859217/resize/800x540%3E/quality/85/?url=https%3A%2F%2Fmedia.beam.usnews.com%2Fb7%2F029f7721431e45fe47d6a961289c63%2FCUBouder_Campuslife1.JPG" alt="University Campus Image" width="200" height="210">
+        <img src="https://www.usnews.com/dims4/USNEWS/53fab75/17177859217/resize/800x540%3E/quality/85/?url=https%3A%2F%2Fmedia.beam.usnews.com%2Fb7%2F029f7721431e45fe47d6a961289c63%2FCUBouder_Campuslife1.JPG" alt="University Campus Image" width="70" height="155">
+        <h4>Registration</h4>
         <form action="/register" method="POST">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="Enter your username" required>
@@ -103,5 +115,4 @@
         <p>Already have an account? <a href="/login">Login</a></p>
     </div>
 </body>
-
 </html>
