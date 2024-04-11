@@ -152,7 +152,7 @@ app.post('/login', async (req, res) => {
     if (passMatch) {
       req.session.user = user;
       req.session.save();
-      return res.status(200).redirect('/classes');
+      return res.status(200).redirect('/home');
     } else {
       return res.status(401).render('pages/login', { error: 'Incorrect password' });
     }
