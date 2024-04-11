@@ -14,7 +14,7 @@ CREATE TABLE classes(
 
 DROP TABLE IF EXISTS user_classes;
 CREATE TABLE user_classes(
-    username VARCHAR(50) PRIMARY KEY,
+    username VARCHAR(50),
     class_id VARCHAR(9),
     FOREIGN KEY (class_id) REFERENCES classes(class_id),
     FOREIGN KEY (username) REFERENCES users(username)
