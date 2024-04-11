@@ -96,6 +96,10 @@ app.get('/home', (req, res) => {
 app.get('/shoppingcart', (req, res) => {
   res.render('pages/shoppingcart');
 });
+
+app.get('/userprofile', (req, res) => {
+  res.render('pages/userprofile');
+});
 // *****************************************************
 // <!--Dummy API -->
 // *****************************************************
