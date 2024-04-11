@@ -88,6 +88,14 @@ app.get('/register', (req, res) => {
 app.get('/classes', (req, res) => {
   res.render('pages/classes');
 });
+
+app.get('/home', (req, res) => {
+  res.render('pages/home');
+});
+
+app.get('/shoppingcart', (req, res) => {
+  res.render('pages/shoppingcart');
+});
 // *****************************************************
 // <!--Dummy API -->
 // *****************************************************
@@ -140,7 +148,7 @@ app.post('/login', async (req, res) => {
     if (passMatch) {
       req.session.user = user;
       req.session.save();
-      return res.status(200).redirect('/discover');
+      return res.status(200).redirect('/classes');
     } else {
       return res.status(401).render('pages/login', { error: 'Incorrect password' });
     }
@@ -158,6 +166,45 @@ const auth = (req, res, next) => {
 };
 
 app.use(auth);
+
+// -------------------------------------  ROUTES for classes.hbs   ----------------------------------------------
+const search_classes_query = "SELECT * FROM classes WHERE name LIKE $1";
+
+app.get('/classes/search', (req, res) => {
+    const searchTerm = req.query.term;
+
+    db.any(search_classes_query, [`%${searchTerm}%`])
+        .then(classes => {
+            res.render('pages/classes', { classes, searchTerm });
+        })
+        .catch(err => {
+            res.render('pages/error', { message: err.message });
+        });
+});
+
+app.post('/classes/add', async (req, res) => {
+  try {
+      const { class_id } = req.body;
+
+      if (!class_id) {
+          return res.status(400).send({ error: 'Missing class_id in request body' });
+      }
+
+      const username = req.session.user.username;
+
+      const existingClass = await db.oneOrNone('SELECT * FROM user_classes WHERE username = $1 AND class_id = $2', [username, class_id]);
+      if (existingClass) {
+          return res.status(400).send({ error: 'Class already added' });
+      }
+
+      await db.none('INSERT INTO user_classes (username, class_id) VALUES ($1, $2)', [username, class_id]);
+      
+      res.status(200).send({ success: true, message: 'Class added successfully' });
+  } catch (error) {
+      console.error('Error occurred while adding class to user_classes:', error);
+      res.status(500).send({ success: false, error: 'Internal server error' });
+  }
+});
 
 // -------------------------------------  ROUTES for logout.hbs   ----------------------------------------------
 app.get('/logout', (req, res) => {

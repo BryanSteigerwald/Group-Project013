@@ -23,20 +23,30 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="mb-4">Class Search</h1>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="searchInput" placeholder="Search for classes...">
-                        </div>
+                        <form id="searchForm" action="/classes/search" method="GET">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="searchInput" name="term" placeholder="Search for classes...">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                        </form>
                         <div class="list-group" id="classList">
-                            <!-- Recommended classes will be dynamically populated here -->
-                            <button type="button" class="list-group-item list-group-item-action class-list-item">Mathematics</button>
-                            <button type="button" class="list-group-item list-group-item-action class-list-item">Physics</button>
-                            <button type="button" class="list-group-item list-group-item-action class-list-item">Biology</button>
-                            <button type="button" class="list-group-item list-group-item-action class-list-item">History</button>
-                            <button type="button" class="list-group-item list-group-item-action class-list-item">Literature</button>
-                            <button type="button" class="list-group-item list-group-item-action class-list-item">Computer Science</button>
-                            <button type="button" class="list-group-item list-group-item-action class-list-item">Art</button>
-                            <button type="button" class="list-group-item list-group-item-action class-list-item">Music</button>
-                            <button type="button" class="list-group-item list-group-item-action class-list-item">Physical Education</button>
+                        <!-- Recommended classes will be dynamically populated here -->
+                        <ul>
+                            {{#each classes}}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="class-name" data-class-id="{{class_id}}">{{name}}</span>
+                                <div>
+                                <form action="/classes/add" method="POST">
+                                    <input type="hidden" name="class_id" value="{{class_id}}">
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </form>
+                                <button class="btn btn-secondary show-description-btn" data-class-id="{{class_id}}" data-description="{{description}}">Show Description</button>
+
+                                </div>
+                            </li>
+                            {{/each}}
+                        </ul>
+
                         </div>
                     </div>
                 </div>
@@ -46,8 +56,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="mb-4">Class Description</h1>
-                        <h5 class="card-title">Selected Class Name</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel urna at lacus accumsan fermentum. Nulla facilisi.</p>
+                        <p class="card-text" id="classDescription">Click on "Show Description" button to view description.</p>
                     </div>
                 </div>
             </div>
@@ -83,10 +92,20 @@
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        //JavaScript to handle click event on "Show Description" button 
+        document.addEventListener('DOMContentLoaded', function () {
+            const descriptionButtons = document.querySelectorAll('.show-description-btn');
+            descriptionButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const classId = this.getAttribute('data-class-id');
+                    console.log('Class ID:', classId); 
+                    const classDescription = this.getAttribute('data-description');
+                    console.log('Class Description:', classDescription);
+                    document.getElementById('classDescription').innerText = classDescription;
+                });
+            });
+        });
+    </script>
 </body>
-
 </html>
