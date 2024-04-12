@@ -156,9 +156,10 @@ app.get('/home', (req, res) => {
   res.render('pages/home');
 });
 
-app.get('/shoppingcart', (req, res) => {
-  res.render('pages/shoppingcart');
-});
+// don't have Shopping Cart tab anymore.
+// app.get('/shoppingcart', (req, res) => {
+//   res.render('pages/shoppingcart');
+// });
 
 app.get('/userprofile', (req, res) => {
   const username = req.session.user.username;
