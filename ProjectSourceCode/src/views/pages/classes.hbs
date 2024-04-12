@@ -19,10 +19,10 @@
 
 <body>
     <div class="container mt-5">
-        <div class="row">
+        <div class="row justify-content-center">
             <!-- Class Search Section -->
-            <div class="col-md-6">
-                <div class="card">
+            <div class="col-md-6 justify-content-center">
+                <div class="card justify-content-center">
                     <div class="card-body">
                         <h1 class="mb-4">Class Search</h1>
                         <form id="searchForm" action="/classes/search" method="GET">
@@ -42,7 +42,7 @@
                                     <input type="hidden" name="class_id" value="{{class_id}}">
                                     <button type="submit" class="btn btn-primary">Add</button>
                                 </form>
-                                <button class="btn btn-secondary show-description-btn" data-class-id="{{class_id}}" data-description="{{description}}">Show Description</button>
+                                <button class="btn btn-secondary show-description-btn" data-bs-toggle="modal" data-bs-target="#classDescriptionModal" data-class-id="{{class_id}}" data-description="{{description}}" data-name="{{name}}" data-info="{{info}}">Show Description</button>
 
                                 </div>
                             </li>
@@ -53,15 +53,18 @@
                     </div>
                 </div>
             </div>
-            <!-- Class Description Section -->
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="mb-4">Class Description</h1>
-                        <h5 class="card-text" id="className">Class Name</h5>
-                        <p class="card-text" id="classDescription">Click on "Show Description" button to view description.</p>
-                        <p class="card-text" id="classInfo">class Info here</p>
-                    </div>
+    <!-- Class Description modal -->
+    <div class="modal fade" id="classDescriptionModal" tabindex="-1" aria-labelledby="classDescriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="classDescriptionModalLabel">Class Description</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5 id="modalClassName">Class Name</h5>
+                    <p id="modalClassDescription">Description here</p>
+                    <p id="modalClassInfo">Class Info</p>
                 </div>
             </div>
         </div>
@@ -96,20 +99,25 @@
             </div>
         </div>
     </div>
+
     <script>
-        //JavaScript to handle click event on "Show Description" button 
+        // JavaScript to handle click event on "Show Description" button 
         document.addEventListener('DOMContentLoaded', function () {
             const descriptionButtons = document.querySelectorAll('.show-description-btn');
             descriptionButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
-                    const classId = this.getAttribute('data-class-id');
-                    console.log('Class ID:', classId); 
                     const classDescription = this.getAttribute('data-description');
-                    console.log('Class Description:', classDescription);
-                    document.getElementById('classDescription').innerText = classDescription;
+                    const className = this.getAttribute('data-name');
+                    const classInfo = this.getAttribute('data-info');
+                    document.getElementById('modalClassName').innerText = className;
+                    document.getElementById('modalClassInfo').innerText = classInfo;
+                    document.getElementById('modalClassDescription').innerText = classDescription;
                 });
             });
         });
     </script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MWxGIkW0lV4HkwnTwQGRlQtl4M6bhji7Fyot6pXfFWpiqfADmzSnj4sJWJbI4dJd" crossorigin="anonymous"></script>
 </body>
 </html>
