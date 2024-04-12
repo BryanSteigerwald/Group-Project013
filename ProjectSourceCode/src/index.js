@@ -90,14 +90,17 @@ const fetchRecommendedClasses = (req, res, next) => {
   if (req.session.user) {
     const username = req.session.user.username;
     const recommended_classes_query = `
-      SELECT c.* 
-      FROM classes c
-      JOIN (
-          SELECT SUBSTRING(class_id, 1, 6) AS prefix 
-          FROM user_classes 
-          WHERE username = $1
-          LIMIT 7
-      ) uc ON c.name LIKE CONCAT(uc.prefix, '%');`;
+    SELECT c.* 
+    FROM classes c
+    JOIN (
+        SELECT SUBSTRING(class_id, 1, 6) AS prefix, class_id
+        FROM user_classes 
+        WHERE username = $1
+        LIMIT 7
+    ) uc ON c.name LIKE CONCAT(uc.prefix, '%') AND c.name != uc.class_id;
+  `;
+  
+
 
     db.any(recommended_classes_query, [username])
       .then(recommended => {
