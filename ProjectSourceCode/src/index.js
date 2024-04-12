@@ -122,6 +122,31 @@ const fetchRecommendedClasses = (req, res, next) => {
 // Apply the middleware to all routes
 app.use(fetchRecommendedClasses);
 
+const fetchTrendingClasses = (req, res, next) => {
+  const trending_classes_query = `
+  SELECT c.class_id, c.name, COUNT(uc.username) AS num_entries
+  FROM classes c
+  JOIN user_classes uc ON c.class_id = uc.class_id
+  GROUP BY c.class_id, c.name
+  ORDER BY num_entries DESC
+  LIMIT 5;
+
+`;
+  db.any(trending_classes_query)
+    .then(trending => {
+      // Attach recommended classes to response locals
+      res.locals.trendingClasses = trending;
+      next(); // Proceed to the next middleware
+    })
+    .catch(err => {
+      res.locals.trendingClasses = []; // Set empty array in case of error
+      next(); // Proceed to the next middleware
+    });
+};
+
+// Apply the middleware to all routes
+app.use(fetchTrendingClasses);
+
 app.get('/classes', (req, res) => {
     res.render('pages/classes')
 });
