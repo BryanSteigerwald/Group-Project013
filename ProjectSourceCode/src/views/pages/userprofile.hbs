@@ -1,11 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
+    <style>
+        /* Set the background color to black and the text color to tan */
+        body {
+            background-color: black;
+            color: tan;
+            font-family: Georgia, serif;
+        }
+
+        /* Style the container */
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Style the form */
+        form {
+            margin-top: 20px;
+        }
+
+        form label {
+            color: tan;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        form input {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        /* Style the nav bar */
+        nav {
+            background-color: tan;
+            padding: 10px;
+        }
+
+        nav a {
+            color: black;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        /* Style the profile picture container */
+        #profilePictureContainer img {
+            max-width: 650px;
+        }
+
+        /* Style the form submit button */
+        input[type="submit"] {
+            background-color: tan;
+            color: black;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #d2a679; /* Darker tan color on hover */
+        }
+    </style>
 </head>
+
 <body>
+    <!-- Main container -->
     <div class="center-container">
         <div class="container">
             <div class="row justify-content-end">
@@ -27,26 +91,26 @@
                 </div>
             </div>
             <div class="row justify-content-center" id="profilePictureContainer">
-                        <!-- Profile picture will be displayed here -->
+                <!-- Profile picture will be displayed here -->
             </div>
         </div>
     </div>
 
     <script>
-        document.getElementById('profile-picture').addEventListener('change', function(event) {
+        document.getElementById('profile-picture').addEventListener('change', function (event) {
             const file = event.target.files[0];
             const reader = new FileReader();
-            
-            reader.onload = function(e) {
+
+            reader.onload = function (e) {
                 const profilePictureContainer = document.getElementById('profilePictureContainer');
-                profilePictureContainer.innerHTML = `<img src="${e.target.result}" alt="Profile Picture" style="max-width: 650px;">`;
-            }
-            
+                profilePictureContainer.innerHTML = `<img src="${e.target.result}" alt="Profile Picture">`;
+            };
+
             reader.readAsDataURL(file);
         });
 
-        document.getElementById('profileForm').addEventListener('submit', function(event) {
-            event.preventDefault(); 
+        document.getElementById('profileForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
             
             const email = document.getElementById('email').value;
             const age = document.getElementById('age').value;
@@ -56,4 +120,5 @@
         });
     </script>
 </body>
+
 </html>
