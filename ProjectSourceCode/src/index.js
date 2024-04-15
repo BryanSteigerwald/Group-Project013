@@ -165,6 +165,7 @@ app.get('/userprofile', (req, res) => {
   const username = req.session.user.username;
   res.render('pages/userprofile', { username });
 });
+
 // *****************************************************
 // <!--Dummy API -->
 // *****************************************************
@@ -276,7 +277,6 @@ app.post('/classes/add', async (req, res) => {
       res.status(500).send({ success: false, error: 'Internal server error' });
   }
 });
-
 
 // -------------------------------------  ROUTES for logout.hbs   ----------------------------------------------
 app.get('/logout', (req, res) => {
