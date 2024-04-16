@@ -35,35 +35,32 @@ var shoppingCart = (function() {
   var obj = {};
   
   // Add to cart
-  obj.addItemToCart = function(name, price, count) {
+  obj.addItemToCart = function(classId, name) {
     for(var item in cart) {
       if(cart[item].name === name) {
-        cart[item].count ++;
-        saveCart();
+        // cart[item].count ++;
+        // saveCart();
         return;
       }
     }
-    var item = new Item(name, price, count);
+    var item = new Item(classId, name);
     cart.push(item);
     saveCart();
   }
   // Set count from item
-  obj.setCountForItem = function(name, count) {
-    for(var i in cart) {
-      if (cart[i].name === name) {
-        cart[i].count = count;
-        break;
-      }
-    }
-  };
+  // obj.setCountForItem = function(name, count) {
+  //   for(var i in cart) {
+  //     if (cart[i].name === name) {
+  //       cart[i].count = count;
+  //       break;
+  //     }
+  //   }
+  // };
   // Remove item from cart
   obj.removeItemFromCart = function(name) {
       for(var item in cart) {
         if(cart[item].name === name) {
-          cart[item].count --;
-          if(cart[item].count === 0) {
             cart.splice(item, 1);
-          }
           break;
         }
     }
@@ -88,21 +85,21 @@ var shoppingCart = (function() {
   }
 
   // Count cart 
-  obj.totalCount = function() {
-    var totalCount = 0;
-    for(var item in cart) {
-      totalCount += cart[item].count;
-    }
-    return totalCount;
-  }
+  // obj.totalCount = function() {
+  //   var totalCount = 0;
+  //   for(var item in cart) {
+  //     totalCount += cart[item].count;
+  //   }
+  //   return totalCount;
+  // }
 
   // Total cart
   obj.totalCart = function() {
     var totalCart = 0;
     for(var item in cart) {
-      totalCart += cart[item].price * cart[item].count;
+      totalCart ++;
     }
-    return Number(totalCart.toFixed(2));
+    return Number(totalCart);
   }
 
   // List cart
@@ -162,19 +159,14 @@ function displayCart() {
   var output = "";
   for(var i in cartArray) {
     output += "<tr>"
-      + "<td>" + cartArray[i].name + "</td>" 
-      + "<td>(" + cartArray[i].price + ")</td>"
-      + "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-name=" + cartArray[i].name + ">-</button>"
-      + "<input type='number' class='item-count form-control' data-name='" + cartArray[i].name + "' value='" + cartArray[i].count + "'>"
-      + "<button class='plus-item btn btn-primary input-group-addon' data-name=" + cartArray[i].name + ">+</button></div></td>"
+      + "<td>" + cartArray[i].classId + "</td>" 
+      + "<td>(" + cartArray[i].name + ")</td>"
       + "<td><button class='delete-item btn btn-danger' data-name=" + cartArray[i].name + ">X</button></td>"
-      + " = " 
-      + "<td>" + cartArray[i].total + "</td>" 
       +  "</tr>";
   }
   $('.show-cart').html(output);
   $('.total-cart').html(shoppingCart.totalCart());
-  $('.total-count').html(shoppingCart.totalCount());
+  // $('.total-count').html(shoppingCart.totalCount());
 }
 
 // Delete item button
@@ -200,11 +192,11 @@ $('.show-cart').on("click", ".plus-item", function(event) {
 })
 
 // Item count input
-$('.show-cart').on("change", ".item-count", function(event) {
-   var name = $(this).data('name');
-   var count = Number($(this).val());
-  shoppingCart.setCountForItem(name, count);
-  displayCart();
-});
+// $('.show-cart').on("change", ".item-count", function(event) {
+//    var name = $(this).data('name');
+//    var count = Number($(this).val());
+//   shoppingCart.setCountForItem(name, count);
+//   displayCart();
+// });
 
 displayCart();
