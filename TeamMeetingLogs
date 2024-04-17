@@ -65,21 +65,33 @@ Team Meeting: April 9th, 2024 (30 Minutes)
 - Our intention was not only to ensure functionality but also to clarify tasks for everyone, maximizing our time effectively as we strive to meet our Thursday deadline.
 
 Team Meeting: April 11th, 2024 (30 Minutes)
-- Getting all the basic functionalities finished and being able to see all the screens on our website.
-- Doing a regular framework and design for right now just to show we have each page working and show a basic information page for each.
-- Getting all our questions answered and working along with everybody's individual page.
-- Adding to the GitHub Projects and making sure we add new assignments and moves everything along.
-- Checked grades to make sure everything looks good so far.
-- Getting our questions ready for our TA Scrum Call later today and getting outstanding questions answered during recitation with our TA if it will affect the TA Scrum Call.
-- Working with each to get majority of the backend functionalities working properly; have everything done but still making certain changes for some pages.
-- EDIT THE ABOVE.
+- Completing all fundamental functionalities and verifying that all website screens are accessible.
+- Developing a basic framework and design to demonstrate the working status of each page, along with an overview of the content on each page.
+- Resolving queries and collaborating effectively with everyone on their respective pages.
+- Updating GitHub Projects by incorporating new tasks and ensuring smooth progress.
+- Reviewing grades to ensure all assessments are accurate and up-to-date.
+- Preparing questions for the TA Scrum Call later today and seeking clarification during recitation with our TA on any unresolved issues that might impact the Scrum Call.
+- Collaborating with the team to finalize most backend functionalities; although many aspects are complete, making additional adjustments for specific pages as needed.
 
-TA Scrum Call: April 11th, 2024 ( Minutes)
-- NEED FROM ELIOT. 
+TA Scrum Call: April 11th, 2024 (10 Minutes)
+- All pages are live and functioning, with a basic design in place.
+- A consistent layout for each page has been established.
+- Class descriptions now appear only when a class is selected.
+- Replaced cards with a modal pop-up for class descriptions triggered by a button click.
+- Enhanced the design with additional CSS for a more polished appearance.
+- Increased social interactivity by showing classes friends are taking and the most popular classes.
+- Users can view their previously taken classes.
+- Exploring potential integration with Canvas.
+- Aim to achieve full end-to-end functionality by the end of this week.
 
-Team Meeting: April 16th, 2024 ( Minutes)
-- 
-Team Meeting: April 18th, 2024 ( Minutes)
-- 
-TA Scrum Call: April 18th, 2024 ( Minutes)
-- 
+Team Meeting: April 16th, 2024 (30 Minutes)
+- Tiya is refining some of the APIs to ensure smooth operation while continuing to design each page, which is a slow process when done alone. She is also making adjustments to existing code.
+- Jonathan attended office hours for assistance with node modules and helped tidy up the shopping cart, which is nearly complete and should be ready by Thursday. He has been able to work independently.
+- Eliot is focused on testing for the trending and recommended pages, aiming to complete them today or by the next lab session at the latest. He is capable of handling the task on his own.
+- Bryan is working on the user profile and is close to finishing it. He will also address an issue with registration that prevents duplicate registrations for the same person.
+- Nicole has not made any contributions yet and is looking for a simpler task to take on.
+- As a team, we are all working diligently to ensure everything is functioning properly by Thursday. Although we did not have extensive discussions, we resolved a few errors and agreed that some team members would attend office hours.
+- Before concluding the meeting, we made sure everyone understood their tasks, and we plan to reconvene during Thursday's recitation.
+
+Team Meeting: April 18th, 2024 (Minutes)
+TA Scrum Call: April 18th, 2024 (Minutes)

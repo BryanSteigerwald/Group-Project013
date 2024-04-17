@@ -19,3 +19,12 @@ CREATE TABLE user_classes(
     FOREIGN KEY (class_id) REFERENCES classes(class_id),
     FOREIGN KEY (username) REFERENCES users(username)
 );
+
+DROP TABLE IF EXISTS user_details;
+CREATE TABLE user_details(
+    username VARCHAR(50),
+    age INT,
+    email VARCHAR(100),
+    profile_picture VARCHAR(255),
+    FOREIGN KEY (username) REFERENCES users(username)
+);
