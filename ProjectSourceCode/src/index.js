@@ -161,10 +161,31 @@ app.get('/home', (req, res) => {
 //   res.render('pages/shoppingcart');
 // });
 
-app.get('/userprofile', (req, res) => {
-  const username = req.session.user.username;
-  res.render('pages/userprofile', { username });
+app.get('/userprofile', async (req, res) => {
+  try {
+    const username = req.session.user.username; // Extract username from authenticated user's session or token
+
+
+    // Fetch user details from user_details table
+    const userDetails = await db.oneOrNone('SELECT * FROM user_details WHERE username = $1', username);
+
+
+    // If user details found, render the userprofile page
+    if (userDetails) {
+      res.status(200).render('pages/userprofile', {
+        username: req.session.user.username,
+        email: userDetails.email,
+        age: userDetails.age
+      });
+    } else {
+      res.status(404).render('pages/error', { message: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    res.status(500).render('pages/error', { message: 'Internal server error' });
+  }
 });
+
 
 // *****************************************************
 // <!--Dummy API -->
@@ -203,19 +224,35 @@ app.post('/login', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
+
     if (!username || !password) {
       return res.status(400).render('pages/login', { error: 'Username and password cannot be blank' });
     }
 
+
     const user = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+
 
     if (!user) {
       return res.status(401).render('pages/login', { error: 'User not found' });
     }
-    
+   
     const passMatch = await bcrypt.compare(password, user.password);
 
+
     if (passMatch) {
+      const existingUserDetails = await db.oneOrNone('SELECT * FROM user_details WHERE username = $1', username);
+
+
+      if (!existingUserDetails) {
+        const email = ""; 
+        const age = null; 
+        const profile_picture = "/default_profile_picture.jpg";
+     
+        await db.none('INSERT INTO user_details (username, email, age, profile_picture) VALUES ($1, $2, $3, $4)', [username, email, age, profile_picture]);
+      }
+
+
       req.session.user = user;
       req.session.save();
       return res.status(200).redirect('/home');
@@ -227,6 +264,7 @@ app.post('/login', async (req, res) => {
     res.status(500).render('pages/login', { error: 'Internal server error' });
   }
 });
+
 
 const auth = (req, res, next) => {
   if (!req.session.user) {
@@ -275,6 +313,30 @@ app.post('/classes/add', async (req, res) => {
   } catch (error) {
       console.error('Error occurred while adding class to user_classes:', error);
       res.status(500).send({ success: false, error: 'Internal server error' });
+  }
+});
+
+// -------------------------------------  ROUTES for userprofile.hbs   ----------------------------------------------
+
+app.post('/userprofile', async (req, res) => {
+  try {
+    const username = req.session.user.username;
+    const { newEmail, newAge } = req.body; // Destructure newEmail and newAge from req.body
+    console.log('Received JSON data:', { username, newEmail, newAge });
+
+    const existingUserDetails = await db.oneOrNone('SELECT * FROM user_details WHERE username = $1', username);
+
+    if (existingUserDetails) {
+      await db.none('UPDATE user_details SET email = $1, age = $2 WHERE username = $3', [newEmail, newAge, username]);
+    } else {
+      await db.none('INSERT INTO user_details (username, email, age) VALUES ($1, $2, $3)', [username, newEmail, newAge]);
+    }
+
+    // Send a response indicating success
+    res.status(200).json({ message: 'User profile updated successfully' });
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
