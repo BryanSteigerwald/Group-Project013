@@ -297,14 +297,14 @@ app.post('/classes/add', async (req, res) => {
       if (!class_id) {
           return res.status(400).send({ error: 'Missing class_id in request body' });
       }
-
+      // find some way to pass the whole class cart
       const username = req.session.user.username;
 
       const existingClass = await db.oneOrNone('SELECT * FROM user_classes WHERE username = $1 AND class_id = $2', [username, class_id]);
       if (existingClass) {
           return res.status(400).send({ error: 'Class already added' });
       }
-
+      //for loop
       await db.none('INSERT INTO user_classes (username, class_id) VALUES ($1, $2)', [username, class_id]);
       
       res.render('pages/classes', { 

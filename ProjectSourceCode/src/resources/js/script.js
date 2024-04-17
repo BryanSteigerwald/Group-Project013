@@ -1,5 +1,8 @@
 let classCart = [];
 
+//ajax call: script -> index
+//write route that stores Cart[] database, into index.js
+
 // Function to add class to cart
 function addToCart(classId, className) {
   // Check if class is already in cart
