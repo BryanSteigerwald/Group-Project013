@@ -1,202 +1,91 @@
-console.log("Hello World");
-// ************************************************
-// Shopping Cart API
-// ************************************************
+let classCart = [];
 
-var shoppingCart = (function() {
-  // =============================
-  // Private methods and propeties
-  // =============================
-  cart = [];
-  
-  // Constructor
-  function Item(classId, name) {
-    this.classId = classId;
-    this.name = name;
-  }
-  
-  // Save cart
-  function saveCart() {
-    sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
-  }
-  
-    // Load cart
-  function loadCart() {
-    cart = JSON.parse(sessionStorage.getItem('shoppingCart'));
-  }
-  if (sessionStorage.getItem("shoppingCart") != null) {
-    loadCart();
-  }
-  
-
-  // =============================
-  // Public methods and propeties
-  // =============================
-  var obj = {};
-  
-  // Add to cart
-  obj.addItemToCart = function(classId, name) {
-    for(var item in cart) {
-      if(cart[item].name === name) {
-        // cart[item].count ++;
-        // saveCart();
-        return;
-      }
-    }
-    var item = new Item(classId, name);
-    cart.push(item);
-    saveCart();
-  }
-  // Set count from item
-  // obj.setCountForItem = function(name, count) {
-  //   for(var i in cart) {
-  //     if (cart[i].name === name) {
-  //       cart[i].count = count;
-  //       break;
-  //     }
-  //   }
-  // };
-  // Remove item from cart
-  obj.removeItemFromCart = function(name) {
-      for(var item in cart) {
-        if(cart[item].name === name) {
-            cart.splice(item, 1);
-          break;
-        }
-    }
-    saveCart();
+// Function to add class to cart
+function addToCart(classId, className) {
+  // Check if class is already in cart
+  const existingClass = classCart.find(item => item.classId === classId);
+  if (existingClass) {
+    return; // Class already in cart
   }
 
-  // Remove all items from cart
-  obj.removeItemFromCartAll = function(name) {
-    for(var item in cart) {
-      if(cart[item].name === name) {
-        cart.splice(item, 1);
-        break;
-      }
-    }
-    saveCart();
-  }
-
-  // Clear cart
-  obj.clearCart = function() {
-    cart = [];
-    saveCart();
-  }
-
-  // Count cart 
-  // obj.totalCount = function() {
-  //   var totalCount = 0;
-  //   for(var item in cart) {
-  //     totalCount += cart[item].count;
-  //   }
-  //   return totalCount;
-  // }
-
-  // Total cart
-  obj.totalCart = function() {
-    var totalCart = 0;
-    for(var item in cart) {
-      totalCart ++;
-    }
-    return Number(totalCart);
-  }
-
-  // List cart
-  obj.listCart = function() {
-    var cartCopy = [];
-    for(i in cart) {
-      item = cart[i];
-      itemCopy = {};
-      for(p in item) {
-        itemCopy[p] = item[p];
-
-      }
-      itemCopy.total = Number(item.price * item.count).toFixed(2);
-      cartCopy.push(itemCopy)
-    }
-    return cartCopy;
-  }
-
-  // cart : Array
-  // Item : Object/Class
-  // addItemToCart : Function
-  // removeItemFromCart : Function
-  // removeItemFromCartAll : Function
-  // clearCart : Function
-  // countCart : Function
-  // totalCart : Function
-  // listCart : Function
-  // saveCart : Function
-  // loadCart : Function
-  return obj;
-})();
-
-
-// *****************************************
-// Triggers / Events
-// ***************************************** 
-// Add item
-$('.add-to-cart').click(function(event) {
-  event.preventDefault();
-  var classId = $(this).data('class-id');
-  var name = $(this).data('name');
-  shoppingCart.addItemToCart(classId, name);
-  displayCart();
-  console.log(classId);
-  console.log(name);
-});
-
-// Clear items
-$('.clear-cart').click(function() {
-  shoppingCart.clearCart();
-  displayCart();
-});
-
-
-function displayCart() {
-  var cartArray = shoppingCart.listCart();
-  var output = "";
-  for(var i in cartArray) {
-    output += "<tr>"
-      + "<td>" + cartArray[i].classId + "</td>" 
-      + "<td>(" + cartArray[i].name + ")</td>"
-      + "<td><button class='delete-item btn btn-danger' data-name=" + cartArray[i].name + ">X</button></td>"
-      +  "</tr>";
-  }
-  $('.show-cart').html(output);
-  $('.total-cart').html(shoppingCart.totalCart());
-  // $('.total-count').html(shoppingCart.totalCount());
+  // Add class to cart
+  classCart.push({ classId, className });
 }
 
-// Delete item button
+// Function to remove class from cart
+function removeFromCart(classId) {
+  classCart = classCart.filter(item => item.classId !== classId);
+}
 
-$('.show-cart').on("click", ".delete-item", function(event) {
-  var name = $(this).data('name')
-  shoppingCart.removeItemFromCartAll(name);
-  displayCart();
-})
+// // Event listener for Add to Cart buttons
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function() {
+      const classId = this.dataset.classId;
+      const className = this.dataset.name;
+      console.log(classId);
+      console.log(className);
+      addToCart(classId, className);
+      this.innerText = 'Already Added';
+      this.disabled = true;
+      this.style.backgroundColor = '#444';
+      this.style.color = '#fff';
+      console.log(classCart);
+    });
+  });
+});
 
+// document.addEventListener('DOMContentLoaded', function() {
+//   document.getElementById('cartButton').addEventListener('click', function() {
+//     // Assuming you have a modal with id "cartModal"
+//     const modal = document.getElementById('cart');
+//     const modalContent = modal.querySelector('.modal-content');
+    
+//     // Clear previous content
+//     modalContent.innerHTML = '';
 
-// -1
-$('.show-cart').on("click", ".minus-item", function(event) {
-  var name = $(this).data('name')
-  shoppingCart.removeItemFromCart(name);
-  displayCart();
-})
-// +1
-$('.show-cart').on("click", ".plus-item", function(event) {
-  var name = $(this).data('name')
-  shoppingCart.addItemToCart(name);
-  displayCart();
-})
+//     // Iterate over cart array and display class names with remove buttons
+//     classCart.forEach(item => {
+//       const classItem = document.createElement('div');
+//       classItem.classList.add('class-item');
+      
+//       const className = document.createElement('p');
+//       className.textContent = item.className;
+      
+//       const removeButton = document.createElement('button');
+//       removeButton.textContent = 'Remove';
+//       removeButton.dataset.classid = item.classId;
+//       removeButton.classList.add('removeButton');
+//       removeButton.addEventListener('click', function() {
+//         const classId = this.dataset.classid;
+//         removeFromCart(classId);
+//         // Update modal display
+//         // For simplicity, you may just close the modal and reopen it to reflect changes
+//         modal.style.display = 'none';
+//         document.getElementById('cartButton').click(); // Reopen modal
+//       });
 
-// Item count input
-// $('.show-cart').on("change", ".item-count", function(event) {
-//    var name = $(this).data('name');
-//    var count = Number($(this).val());
-//   shoppingCart.setCountForItem(name, count);
-//   displayCart();
+//       classItem.appendChild(className);
+//       classItem.appendChild(removeButton);
+//       modalContent.appendChild(classItem);
+//     });
+
+//     // Show the modal
+//     // modal.style.display = 'block';
+//   });
 // });
 
-displayCart();
+document.addEventListener('DOMContentLoaded', function() {
+  // Select the cart button
+  const cartButton = document.getElementById('cartButton');
+
+  // Add an event listener to the cart button
+  cartButton.addEventListener('click', function() {
+    // Get the modal element
+    const modal = document.getElementById('cart');
+
+    // Display the modal
+    // This line isn't necessary if you're using Bootstrap, as Bootstrap handles modal display
+    // modal.style.display = 'block';
+  });
+});
