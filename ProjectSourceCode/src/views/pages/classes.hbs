@@ -33,13 +33,14 @@
             background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black for carousel captions */
         }
         .navbar {
-            background-color: #d2b48c; /* Tan background for navigation bar */
+            background-color: #D2B48C;
+            padding: 10px 20px;
         }
         .navbar-nav .nav-link {
-            color: black; /* Black text for navigation bar links */
-        }
-        .navbar-brand {
-            color: black; /* Black text for navigation bar brand */
+            color: #000;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
         }
     </style>
 </head>
@@ -62,15 +63,11 @@
                             <!-- Recommended classes will be dynamically populated here -->
                             <ul>
                                 {{#each classes}}
-                                <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: #444; color: #d2b48c;">
+                                <li class="list-group-item" style="background-color: #444; color: #d2b48c;">
                                     <span class="class-name" data-class-id="{{class_id}}">{{name}}</span>
-                                    <div>
-                                        {{!-- <form action="/classes/add" method="POST"> --}}
-                                            {{!-- <input type="hidden" name="class_id" value="{{class_id}}"> --}}
-                                            {{!-- <button type="submit" class="btn btn-primary">Add</button> --}}
-                                            <a href="#" data-class-id={{class_id}} data-name="{{name}}" class="add-to-cart btn btn-primary">Add to cart</a>
-                                        </form>
-                                        <button class="btn btn-secondary show-description-btn" data-bs-toggle="modal" data-bs-target="#classDescriptionModal" data-class-id="{{class_id}}" data-description="{{description}}" data-name="{{name}}" data-info="{{info}}">Show Description</button>
+                                    <div class="mt-2"> <!-- A margin top to separate buttons from class name -->
+                                    <a href="#" data-class-id="{{class_id}}" data-name="{{name}}" class="add-to-cart btn btn-primary w-100 mb-2">Add to Cart</a>
+                                    <button class="btn btn-secondary show-description-btn w-100" data-bs-toggle="modal" data-bs-target="#classDescriptionModal" data-class-id="{{class_id}}" data-description="{{description}}" data-name="{{name}}" data-info="{{info}}">Show Description</button>
                                     </div>
                                 </li>
                                 {{/each}}
