@@ -43,7 +43,10 @@
         </section>
 
         <!-- Add Trending section here -->
-            <h1>Trending Classes</h1>
+        {{#if trendingClasses}}
+        <header>
+            <h1>Trending classes</h1>
+        </header>
         <div class="container text-center">
             {{#each trendingClasses}}
             <div class="row">
@@ -53,4 +56,7 @@
             </div>
             {{/each}}
         </div>
+        {{else}}
+        <h1>Add classes to see trending classes!</h1>
+        {{/if}}
     </main>
