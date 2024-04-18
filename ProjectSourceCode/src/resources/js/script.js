@@ -1,8 +1,5 @@
 let classCart = [];
 
-//ajax call: script -> index
-//write route that stores Cart[] database, into index.js
-
 // Function to add class to cart
 function addToCart(classId, className) {
   // Check if class is already in cart
@@ -13,14 +10,36 @@ function addToCart(classId, className) {
 
   // Add class to cart
   classCart.push({ classId, className });
+  updateCartStorage(); // Update local storage
 }
 
 // Function to remove class from cart
 function removeFromCart(classId) {
   classCart = classCart.filter(item => item.classId !== classId);
+  updateCartStorage(); // Update local storage
 }
 
-// // Event listener for Add to Cart buttons
+// Function to update cart storage
+function updateCartStorage() {
+  localStorage.setItem('classCart', JSON.stringify(classCart));
+}
+
+// Function to load cart from local storage
+function loadCartFromStorage() {
+  const storedCart = localStorage.getItem('classCart');
+  if (storedCart) {
+    classCart = JSON.parse(storedCart);
+  }
+}
+
+// Load cart from local storage when the page is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  loadCartFromStorage();
+  populateCartModal(); // Populate cart modal with stored cart items
+  updateAddToCartButtons(); // Update "Add to cart" buttons based on stored cart items
+});
+
+// Event listener for Add to Cart buttons
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', function() {
@@ -81,6 +100,7 @@ function populateCartModal() {
           }
 
           classCart.splice(index, 1); // Remove item from classCart array
+          updateCartStorage(); // Update local storage
           populateCartModal(); // Re-populate modal with updated classCart
       });
   });
@@ -98,11 +118,12 @@ function enrollClasses() {
         console.log(response.message); // Log success message
         $('#cart').modal('hide'); // Hide modal after successful enrollment
         classCart = [];
+        localStorage.removeItem('classCart'); // Clear cart from local storage
     },
     error: function(xhr, status, error) {
         console.error('Error enrolling classes:', error); // Log error message
     }
-});
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -140,8 +161,3 @@ function updateAddToCartButtons() {
       });
   });
 }
-
-// Call updateAddToCartButtons function when the page is loaded
-document.addEventListener('DOMContentLoaded', function() {
-  updateAddToCartButtons();
-});
