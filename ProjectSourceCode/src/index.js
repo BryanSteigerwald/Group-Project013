@@ -33,6 +33,20 @@ const dbConfig = {
   password: process.env.POSTGRES_PASSWORD, // the password of the user account
 };
 
+// remember to change later. 
+// const pgpdbConfig = {
+//     host: process.env.host,
+//     port: 5432, // the database port
+//     database: process.env.POSTGRES_DB, // the database name
+//     user: process.env.POSTGRES_USER, // the user account to connect with
+//     password: process.env.POSTGRES_PASSWORD, // the password of the user account
+//     port: 5432,
+//     database: process.env.database,
+//     user: process.env.user,
+//     password: process.env.password
+// }
+
+// remember to change later. 
 const db = pgp(dbConfig);
 
 // test your database
