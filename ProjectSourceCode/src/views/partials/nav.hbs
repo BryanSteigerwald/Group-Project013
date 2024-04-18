@@ -18,9 +18,9 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     {{!-- <a class="nav-link" data-toggle="modal" data-target="#cart">Cart</a> --}}
-                    <button type="button" id="cartButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cart">
-Cart
-</button>
+                    <a type="button" id="cartButton" class="nav-link" data-bs-toggle="modal" data-bs-target="#cart">
+                    Cart
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href='/logout'>Logout</a>
@@ -35,7 +35,7 @@ Cart
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Cart</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div id="cartItems" class="modal-body">
