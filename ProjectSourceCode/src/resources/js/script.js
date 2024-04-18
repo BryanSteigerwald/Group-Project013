@@ -38,57 +38,110 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   document.getElementById('cartButton').addEventListener('click', function() {
-//     // Assuming you have a modal with id "cartModal"
-//     const modal = document.getElementById('cart');
-//     const modalContent = modal.querySelector('.modal-content');
-    
-//     // Clear previous content
-//     modalContent.innerHTML = '';
-
-//     // Iterate over cart array and display class names with remove buttons
-//     classCart.forEach(item => {
-//       const classItem = document.createElement('div');
-//       classItem.classList.add('class-item');
-      
-//       const className = document.createElement('p');
-//       className.textContent = item.className;
-      
-//       const removeButton = document.createElement('button');
-//       removeButton.textContent = 'Remove';
-//       removeButton.dataset.classid = item.classId;
-//       removeButton.classList.add('removeButton');
-//       removeButton.addEventListener('click', function() {
-//         const classId = this.dataset.classid;
-//         removeFromCart(classId);
-//         // Update modal display
-//         // For simplicity, you may just close the modal and reopen it to reflect changes
-//         modal.style.display = 'none';
-//         document.getElementById('cartButton').click(); // Reopen modal
-//       });
-
-//       classItem.appendChild(className);
-//       classItem.appendChild(removeButton);
-//       modalContent.appendChild(classItem);
-//     });
-
-//     // Show the modal
-//     // modal.style.display = 'block';
-//   });
-// });
-
 document.addEventListener('DOMContentLoaded', function() {
-  // Select the cart button
   const cartButton = document.getElementById('cartButton');
 
   // Add an event listener to the cart button
   cartButton.addEventListener('click', function() {
     // Get the modal element
-    const modal = document.getElementById('cart');
-
-    // Display the modal
-    // This line isn't necessary if you're using Bootstrap, as Bootstrap handles modal display
-    // modal.style.display = 'block';
+    populateCartModal();
   });
+});
+
+function populateCartModal() {
+  const cartItemsContainer = document.getElementById('cartItems');
+  cartItemsContainer.innerHTML = '';
+
+  // Loop through each item in classCart and generate HTML
+  classCart.forEach((classItem, index) => {
+      const { classId, className } = classItem;
+      const itemHTML = `
+          <div class="class-item">
+              <span>${classId} - ${className}</span>
+              <button type="button" class="btn btn-danger btn-sm remove-btn" data-index="${index}">Remove</button>
+          </div>
+      `;
+      cartItemsContainer.insertAdjacentHTML('beforeend', itemHTML);
+  });
+
+  // Add event listeners to remove buttons
+  const removeButtons = document.querySelectorAll('.remove-btn');
+  removeButtons.forEach(button => {
+      button.addEventListener('click', function() {
+          const index = parseInt(button.getAttribute('data-index'));
+
+          // Enable corresponding "Add to cart" button
+          const classId = classCart[index].classId;
+          const addButton = document.querySelector(`.add-to-cart[data-class-id="${classId}"]`);
+          if (addButton) {
+              addButton.innerText = 'Add to cart';
+              addButton.disabled = false;
+              addButton.style.backgroundColor = ''; // Reset background color
+              addButton.style.color = ''; // Reset text color
+          }
+
+          classCart.splice(index, 1); // Remove item from classCart array
+          populateCartModal(); // Re-populate modal with updated classCart
+      });
+  });
+}
+
+// Function to enroll classes in the cart
+function enrollClasses() {
+  // Make AJAX request to enroll all classes in classCart
+  $.ajax({
+    type: 'POST',
+    url: '/classes/add',
+    contentType: 'application/json',
+    data: JSON.stringify({ classCart: classCart }),
+    success: function(response) {
+        console.log(response.message); // Log success message
+        $('#cart').modal('hide'); // Hide modal after successful enrollment
+        classCart = [];
+    },
+    error: function(xhr, status, error) {
+        console.error('Error enrolling classes:', error); // Log error message
+    }
+});
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const cartButton = document.getElementById('enrollButton');
+
+  // Add an event listener to the cart button
+  cartButton.addEventListener('click', function() {
+    enrollClasses();
+    console.log("enrolled classes from cart");
+  });
+});
+
+// Function to update add-to-cart buttons based on user_classes
+function updateAddToCartButtons() {
+  const addToCartButtons = document.querySelectorAll('.add-to-cart');
+  addToCartButtons.forEach(button => {
+      const classId = button.dataset.classId;
+      
+      // Make AJAX request to check if the class is already added
+      $.ajax({
+          type: 'GET',
+          url: '/classes/check',
+          data: { classId: classId },
+          success: function(response) {
+              if (response.exists) {
+                  button.innerText = 'Already Added';
+                  button.disabled = true;
+                  button.style.backgroundColor = '#444';
+                  button.style.color = '#fff';
+              }
+          },
+          error: function(xhr, status, error) {
+              console.error('Error checking class:', error); // Log error message
+          }
+      });
+  });
+}
+
+// Call updateAddToCartButtons function when the page is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  updateAddToCartButtons();
 });

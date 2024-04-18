@@ -290,29 +290,81 @@ app.get('/classes/search', (req, res) => {
         });
 });
 
+// app.post('/classes/add', async (req, res) => {
+//   try {
+//       const { class_id } = req.body;
+
+//       if (!class_id) {
+//           return res.status(400).send({ error: 'Missing class_id in request body' });
+//       }
+//       // find some way to pass the whole class cart
+//       const username = req.session.user.username;
+
+//       const existingClass = await db.oneOrNone('SELECT * FROM user_classes WHERE username = $1 AND class_id = $2', [username, class_id]);
+//       if (existingClass) {
+//           return res.status(400).send({ error: 'Class already added' });
+//       }
+//       //for loop
+//       await db.none('INSERT INTO user_classes (username, class_id) VALUES ($1, $2)', [username, class_id]);
+      
+//       res.render('pages/classes', { 
+//         message: 'Class added successfully'
+//       });
+//   } catch (error) {
+//       console.error('Error occurred while adding class to user_classes:', error);
+//       res.status(500).send({ success: false, error: 'Internal server error' });
+//   }
+// });
+
+//Add classes from cart
 app.post('/classes/add', async (req, res) => {
   try {
-      const { class_id } = req.body;
+      const classCart = req.body.classCart;
 
-      if (!class_id) {
-          return res.status(400).send({ error: 'Missing class_id in request body' });
+      if (!classCart || !Array.isArray(classCart) || classCart.length === 0) {
+          return res.status(400).send({ error: 'Invalid class cart data' });
       }
-      // find some way to pass the whole class cart
+
       const username = req.session.user.username;
 
-      const existingClass = await db.oneOrNone('SELECT * FROM user_classes WHERE username = $1 AND class_id = $2', [username, class_id]);
-      if (existingClass) {
-          return res.status(400).send({ error: 'Class already added' });
+      for (const classItem of classCart) {
+          const { classId, className } = classItem;
+
+          // Check if class is already added for the user
+          const existingClass = await db.oneOrNone('SELECT * FROM user_classes WHERE username = $1 AND class_id = $2', [username, classId]);
+          if (existingClass) {
+              console.log(`Class ${classId} (${className}) already added`);
+              continue; // Skip to the next class
+          }
+
+          // Insert class into database
+          await db.none('INSERT INTO user_classes (username, class_id) VALUES ($1, $2)', [username, classId]);
+          console.log(`Class ${classId} (${className}) added successfully`);
       }
-      //for loop
-      await db.none('INSERT INTO user_classes (username, class_id) VALUES ($1, $2)', [username, class_id]);
-      
-      res.render('pages/classes', { 
-        message: 'Class added successfully'
-      });
+
+      res.status(200).send({ message: 'Classes added successfully' });
   } catch (error) {
-      console.error('Error occurred while adding class to user_classes:', error);
+      console.error('Error occurred while adding classes to user_classes:', error);
       res.status(500).send({ success: false, error: 'Internal server error' });
+  }
+});
+
+app.get('/classes/check', async (req, res) => {
+  try {
+      const { classId } = req.query; // Get classId from the query parameters
+
+      // Check if the class exists in the user_classes table
+      const existingClass = await db.oneOrNone('SELECT * FROM user_classes WHERE class_id = $1', [classId]);
+
+      // Send response based on whether the class exists
+      if (existingClass) {
+          res.json({ exists: true }); // Class exists
+      } else {
+          res.json({ exists: false }); // Class does not exist
+      }
+  } catch (error) {
+      console.error('Error checking class:', error);
+      res.status(500).json({ error: 'Internal server error' });
   }
 });
 
