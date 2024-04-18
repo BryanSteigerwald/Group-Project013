@@ -170,19 +170,19 @@ app.get('/home', (req, res) => {
   res.render('pages/home');
 });
 
-// don't have Shopping Cart tab anymore.
-// app.get('/shoppingcart', (req, res) => {
-//   res.render('pages/shoppingcart');
-// });
 
 app.get('/userprofile', async (req, res) => {
   try {
-    const username = req.session.user.username; // Extract username from authenticated user's session or token
+    // Check if user is authenticated
+    if (!req.session || !req.session.user || !req.session.user.username) {
+      // If not authenticated, redirect to login page
+      return res.redirect('/login');
+    }
 
+    const username = req.session.user.username;
 
     // Fetch user details from user_details table
     const userDetails = await db.oneOrNone('SELECT * FROM user_details WHERE username = $1', username);
-
 
     // If user details found, render the userprofile page
     if (userDetails) {
@@ -199,7 +199,6 @@ app.get('/userprofile', async (req, res) => {
     res.status(500).render('pages/error', { message: 'Internal server error' });
   }
 });
-
 
 // *****************************************************
 // <!--Dummy API -->

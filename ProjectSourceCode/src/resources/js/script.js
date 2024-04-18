@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log(classId);
       console.log(className);
       addToCart(classId, className);
-      this.innerText = 'Already Added';
+      this.innerText = 'Added';
       this.disabled = true;
       this.style.backgroundColor = '#444';
       this.style.color = '#fff';
