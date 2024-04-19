@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Selector</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Additional custom styling */
+        body {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Class Search Section -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="mb-4">Class Search</h1>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search for classes...">
+                        </div>
+                        <div class="list-group" id="classList">
+                            <!-- Recommended classes will be dynamically populated here -->
+                            <button type="button" class="list-group-item list-group-item-action class-list-item">Mathematics</button>
+                            <button type="button" class="list-group-item list-group-item-action class-list-item">Physics</button>
+                            <button type="button" class="list-group-item list-group-item-action class-list-item">Biology</button>
+                            <button type="button" class="list-group-item list-group-item-action class-list-item">History</button>
+                            <button type="button" class="list-group-item list-group-item-action class-list-item">Literature</button>
+                            <button type="button" class="list-group-item list-group-item-action class-list-item">Computer Science</button>
+                            <button type="button" class="list-group-item list-group-item-action class-list-item">Art</button>
+                            <button type="button" class="list-group-item list-group-item-action class-list-item">Music</button>
+                            <button type="button" class="list-group-item list-group-item-action class-list-item">Physical Education</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Class Description Section -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="mb-4">Class Description</h1>
+                        <h5 class="card-title">Selected Class Name</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel urna at lacus accumsan fermentum. Nulla facilisi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recommended Classes Carousel Section -->
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="mb-4">Recommended Classes</h1>
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://via.placeholder.com/800x400?text=Class+1" class="d-block w-100" alt="Class 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://via.placeholder.com/800x400?text=Class+2" class="d-block w-100" alt="Class 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://via.placeholder.com/800x400?text=Class+3" class="d-block w-100" alt="Class 3">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
