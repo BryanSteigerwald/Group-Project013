@@ -392,15 +392,15 @@ app.get('/classes/check', async (req, res) => {
 app.post('/userprofile', async (req, res) => {
   try {
     const username = req.session.user.username;
-    const { newEmail, newAge } = req.body; // Destructure newEmail and newAge from req.body
-    console.log('Received JSON data:', { username, newEmail, newAge });
+    const { newEmail, newAge, newPassword } = req.body; 
+    console.log('Received JSON data:', { username, newEmail, newAge, newPassword });
 
-    const existingUserDetails = await db.oneOrNone('SELECT * FROM user_details WHERE username = $1', username);
+    await db.none('UPDATE user_details SET email = $1, age = $2 WHERE username = $3', [newEmail, newAge, username]);
 
-    if (existingUserDetails) {
-      await db.none('UPDATE user_details SET email = $1, age = $2 WHERE username = $3', [newEmail, newAge, username]);
-    } else {
-      await db.none('INSERT INTO user_details (username, email, age) VALUES ($1, $2, $3)', [username, newEmail, newAge]);
+    // Update password if newPassword is provided
+    if (newPassword) {
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      await db.none('UPDATE users SET password = $1 WHERE username = $2', [hashedPassword, username]);
     }
 
     // Send a response indicating success
@@ -410,6 +410,7 @@ app.post('/userprofile', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 
 // -------------------------------------  ROUTES for logout.hbs   ----------------------------------------------
 app.get('/logout', (req, res) => {

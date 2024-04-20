@@ -14,9 +14,11 @@
                     <button id="editDetailsBtn">Edit details</button>
 
                     <div id="editForm" class="hidden">
-                        <input type="email" id="newEmail" name="newEmail" placeholder="New Email" required>
+                        <input type="email-user" id="newEmail" name="newEmail" placeholder="New Email" required>
                         <br>
-                        <input type="number" id="newAge" name="newAge" placeholder="New Age" required>
+                        <input type="number-user" id="newAge" name="newAge" placeholder="New Age" required>
+                        <br>
+                        <input type="password-user" id="newPassword" name="newPassword" placeholder="New Password" required>
                         <br>
                         <input type="file" id="newProfilePicture" name="newProfilePicture" accept="image/*" placeholder="New Profile Picture">
                         <br>
@@ -42,7 +44,6 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Your code here
             document.getElementById('newProfilePicture').addEventListener('change', function(event) {
                 const file = event.target.files[0];
                 const reader = new FileReader();
@@ -61,12 +62,13 @@
             const newEmail = document.getElementById('newEmail').value;
             const newAge = document.getElementById('newAge').value;
             const newProfilePicture = document.getElementById('newProfilePicture').files[0];
+            const newPassword = document.getElementById('newPassword').value;
             
-            // Construct FormData-like object manually
             const formData = {
                 newEmail: newEmail,
                 newAge: newAge,
-                newProfilePicture: newProfilePicture
+                newProfilePicture: newProfilePicture,
+                newPassword: newPassword
             };
 
             try {
@@ -79,14 +81,11 @@
                 });
 
                 if (response.ok) {
-                    // If the response is successful, redirect to the user profile page
                     window.location.href = '/userprofile';
                 } else {
-                    // If the response is not successful, log an error message
                     console.error('Failed to update user profile');
                 }
             } catch (error) {
-                // If an error occurs during the fetch operation, log the error
                 console.error('Error updating user profile:', error);
             }
         });

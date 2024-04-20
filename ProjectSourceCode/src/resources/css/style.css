@@ -177,6 +177,12 @@ input[type="submit"]:hover {
     background-color: #d2a679; /* Darker tan color on hover */
 }
 
+input[type="email-user"],
+input[type="number-user"],
+input[type="password-user"] {
+    width: 200px; 
+}
+
 .hidden {
     display: none;
 }
