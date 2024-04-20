@@ -1,0 +1,214 @@
+/* Shared custom styling */
+body {
+    background-color: black;
+    color: tan;
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, serif;
+    text-align: center;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 200px;
+}
+
+.container-reg {
+    width: 400px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    padding: 40px;
+}
+
+.container-log {
+    width: 400px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    padding: 40px;
+}
+
+h2 {
+    color: #D2B48C;
+    margin-bottom: 20px;
+}
+
+h4 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 16px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 10 px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 18px;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    display: block;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+}
+
+.button {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #D2B48C;
+    color: #000;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #C0A16B;
+}
+
+.navbar, nav {
+    background-color: #D2B48C;
+    padding: 10px 20px;
+}
+
+.navbar-nav .nav-link, nav a {
+    color: #000;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 18px;
+}
+main {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+main section {
+    text-align: center;
+}
+
+/* Specific to the User Profile page */
+.container-user {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+#profilePictureContainer img {
+    max-width: 650px;
+}
+
+/* Button styling */
+input[type="submit"] {
+    background-color: tan;
+    color: black;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #d2a679; /* Darker tan color on hover */
+}
+
+.hidden {
+    display: none;
+}
+
+/*specific to the classes page */
+.card, .modal-content {
+    background-color: #333; /* Dark gray for cards and modal content */
+    color: #d2b48c; /* Tan text color */
+}
+.btn-primary {
+    background-color: #0056b3; /* Custom blue for buttons */
+}
+.btn-secondary {
+    background-color: #6c757d; /* Custom secondary color for buttons */
+}
+.carousel-item {
+    background-color: #333; /* Dark gray for carousel items */
+}
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black for carousel captions */
+}
+.navbar {
+    background-color: #D2B48C;
+    padding: 10px 20px;
+}
+.navbar-nav .nav-link {
+    color: #000;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 18px;
+}
+.center-header {
+    text-align: center; /* Center justify text */
+    margin-top: 20px; /* Add spacing before the header */
+}

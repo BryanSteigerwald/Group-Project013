@@ -1,81 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Shared custom styling */
-        body {
-            background-color: black;
-            color: tan;
-            font-family: Georgia, serif;
-        }
-
-        .navbar, nav {
-            background-color: #D2B48C;
-            padding: 10px 20px;
-        }
-
-        .navbar-nav .nav-link, nav a {
-            color: #000;
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: 18px;
-        }
-
-        /* Specific to the User Profile page */
-        .container {
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        form {
-            margin-top: 20px;
-        }
-
-        form label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        form input {
-            margin-bottom: 10px;
-            padding: 5px;
-        }
-
-        #profilePictureContainer img {
-            max-width: 650px;
-        }
-
-        /* Button styling */
-        input[type="submit"] {
-            background-color: tan;
-            color: black;
-            padding: 5px 10px;
-            border: none;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #d2a679; /* Darker tan color on hover */
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-
-
 <body>
+    <title>User Profile</title>
     <div class="center-container">
-        <div class="container">
-            <div class="row justify-content-end">
+        <div class="container-user">
+            <div class="row justify-content-center">
                 <div class="col-md-8">
                     <h1>{{ username }}'s User Profile</h1>
 
@@ -165,4 +92,3 @@
         });
     </script>
 </body>
-</html>
