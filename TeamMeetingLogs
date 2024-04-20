@@ -93,7 +93,7 @@ Team Meeting: April 16th, 2024 (30 Minutes)
 - As a team, we are all working diligently to ensure everything is functioning properly by Thursday. Although we did not have extensive discussions, we resolved a few errors and agreed that some team members would attend office hours.
 - Before concluding the meeting, we made sure everyone understood their tasks, and we plan to reconvene during Thursday's recitation.
 
-Team Meeting: April 18th, 2024 (Minutes)
+Team Meeting: April 18th, 2024 (30 Minutes)
 - what we have to do before presenting and our TA Scrum Call later today:
 Fixing up the shopping cart, making sure the trendings page and the recommended classes work, fix the profile picture in the user profile page, fix nav bar so that if your not logged in to say log in, and then continuing to work on designs.
 - lab 13 has been finished and the website is up and running.
@@ -101,4 +101,14 @@ Fixing up the shopping cart, making sure the trendings page and the recommended 
 - talked through what we have left to do and making sure we all know what is left to do.
 - work hard on it till Sunday and then meet and get ready for the presentation. 
 
-TA Scrum Call: April 18th, 2024 (Minutes)
+TA Scrum Call: April 18th, 2024 (15 Minutes)
+Add padding to the user profiles
+Add an ability to change password
+Classes to take next in hierarchy
+Add Prerequisites to SQL
+Users should not be able to enroll to a class if they dont have pre-reqs
+Classes already enrolled in show up in user profile
+When you’re not logged in, you should not be able to see any navbar options
+Once you’re registered and logged in, you can see navbar
+Display classes taken, classes you’re going to take, and current classes
+Deploy the app and send link to TA
