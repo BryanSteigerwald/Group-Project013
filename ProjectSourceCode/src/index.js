@@ -168,13 +168,17 @@ const fetchTrendingClasses = (req, res, next) => {
 app.use(fetchTrendingClasses);
 
 app.get('/classes', (req, res) => {
-    res.render('pages/classes')
+    res.render('pages/classes',{
+      loggedIn:true
+    })
 });
 
 
 app.get('/home', (req, res) => {
   console.log(req.session);
-  res.render('pages/home');
+  res.render('pages/home',{
+    loggedIn:true
+  });
 });
 
 
@@ -203,11 +207,13 @@ app.get('/userprofile', async (req, res) => {
 
     // If user details found, render the userprofile page
     if (userDetails) {
-      res.status(200).render('pages/userprofile', {
+      res.status(200).render('pages/userprofile',
+      {
+        loggedIn:true,
         username: req.session.user.username,
         email: userDetails.email,
         age: userDetails.age,
-        classes: classNames 
+        classes: classNames
       });
     } else {
       res.status(404).render('pages/error', { message: 'User not found' });
@@ -288,7 +294,6 @@ app.post('/login', async (req, res) => {
 
       req.session.user = user;
       req.session.save();
-      console.log('asdfghjkl');
       return res.status(200).redirect('/home');
     } else {
       return res.status(401).render('pages/login', { error: 'Incorrect password' });
@@ -429,7 +434,9 @@ app.post('/userprofile', async (req, res) => {
 // -------------------------------------  ROUTES for logout.hbs   ----------------------------------------------
 app.get('/logout', (req, res) => {
   req.session.destroy();
-  res.render('pages/logout');
+  res.render('pages/logout',{
+    loggedIn:true
+  });
 });
 
 // *****************************************************
