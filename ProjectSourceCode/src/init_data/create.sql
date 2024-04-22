@@ -20,6 +20,14 @@ CREATE TABLE user_classes(
     FOREIGN KEY (username) REFERENCES users(username)
 );
 
+DROP TABLE IF EXISTS prerequisites;
+CREATE TABLE prerequisites(
+    prereq_id VARCHAR(9),
+    class_id VARCHAR(9),
+    FOREIGN KEY (class_id) REFERENCES classes(class_id),
+    FOREIGN KEY (prereq_id) REFERENCES classes(class_id)
+);
+
 DROP TABLE IF EXISTS user_details;
 CREATE TABLE user_details(
     username VARCHAR(50),

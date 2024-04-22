@@ -110,14 +110,22 @@ const fetchRecommendedClasses = (req, res, next) => {
         SELECT SUBSTRING(class_id, 1, 6) AS prefix, class_id
         FROM user_classes 
         WHERE username = $1
-    ) uc ON c.class_id LIKE CONCAT(uc.prefix, '%') 
+    ) uc ON c.class_id LIKE CONCAT(uc.prefix, '%') AND uc.class_id > c.class_id
+    LEFT JOIN prerequisites p ON c.class_id = p.class_id
     WHERE NOT EXISTS (
         SELECT 1 
         FROM user_classes uc2 
         WHERE uc2.class_id = c.class_id
     )
+    OR EXISTS (
+        SELECT 1
+        FROM user_classes uc3
+        WHERE uc3.username = $1
+        AND uc3.class_id = p.prereq_id
+    )
     LIMIT 7;
-`;
+    `;
+    
 
   
 
@@ -373,6 +381,30 @@ app.post('/classes/add', async (req, res) => {
           const existingClass = await db.oneOrNone('SELECT * FROM user_classes WHERE username = $1 AND class_id = $2', [username, classId]);
           if (existingClass) {
               console.log(`Class ${classId} (${className}) already added`);
+              continue; // Skip to the next class
+          }
+          
+          //Check if user has prereqs for the class
+          const non_added_prereqs = await db.oneOrNone(
+            `
+            SELECT *
+            FROM classes
+            WHERE class_id = $1
+            AND class_id NOT IN (
+                SELECT class_id
+                FROM prerequisites
+                WHERE prereq_id NOT IN (
+                    SELECT class_id
+                    FROM user_classes
+                    WHERE username = $2
+                )
+            )
+            `,
+            [classId, username]
+        );
+        
+          if (non_added_prereqs) {
+              console.log(`User does not have required prerequisites for ${classId} (${className})`);
               continue; // Skip to the next class
           }
 
