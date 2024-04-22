@@ -9,6 +9,9 @@
     <title>Class Selector</title> --}}
     <!-- Bootstrap CSS -->    
 {{!-- </head> --}}
+<head>
+    <title>Classes</title>
+</head>
 
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -20,7 +23,7 @@
                         <form id="searchForm" action="/classes/search" method="GET">
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id="searchInput" name="term" placeholder="Search for classes..." style="color: #000;">
-                                <button class="btn btn-primary" type="submit">Search</button>
+                                <button class="btn btn-primary" type="submit" style="height: calc(2.25em + .75rem + 2px);">Search</button>
                             </div>
                         </form>
                         <div class="list-group" id="classList">
@@ -91,7 +94,7 @@
         </div>
     </div>
     {{else}}
-    <h1 class = "center-header">Add classes to see recommended classes!</h1>
+    <h1 class = "center-header">Add Classes To See Recommended Classes!</h1>
     {{/if}}
 
     <script>
