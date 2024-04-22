@@ -218,3 +218,48 @@ input[type="password-user"] {
     text-align: center; /* Center justify text */
     margin-top: 20px; /* Add spacing before the header */
 }
+
+/* style.css */
+button {
+    background-color: tan;
+    color: white;
+    border: none;
+    padding: 8px 16px; /* Adjusted padding */
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+input[type="email-user"],
+input[type="number-user"],
+input[type="password-user"] {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 80%; /* Adjusted width */
+    transition: border-color 0.3s;
+}
+
+/* Customize file input appearance */
+input[type="file"] {
+    background-color: transparent;
+    border: none;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background-color: tan;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #e8b28e;
+    color: white;
+}
