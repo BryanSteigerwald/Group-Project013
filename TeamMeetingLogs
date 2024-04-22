@@ -94,21 +94,25 @@ Team Meeting: April 16th, 2024 (30 Minutes)
 - Before concluding the meeting, we made sure everyone understood their tasks, and we plan to reconvene during Thursday's recitation.
 
 Team Meeting: April 18th, 2024 (30 Minutes)
-- what we have to do before presenting and our TA Scrum Call later today:
-Fixing up the shopping cart, making sure the trendings page and the recommended classes work, fix the profile picture in the user profile page, fix nav bar so that if your not logged in to say log in, and then continuing to work on designs.
-- lab 13 has been finished and the website is up and running.
-- getting questions ready for the TA Scrum Call and preparing for the meeting to make sure we're on top of it and ready to show our entire application
-- talked through what we have left to do and making sure we all know what is left to do.
-- work hard on it till Sunday and then meet and get ready for the presentation. 
+- Priorities before our presentation and TA Scrum Call later today:
+   - Rectify issues with the shopping cart functionality.
+   - Ensure the trending page and recommended classes feature are functioning correctly.
+   - Resolve the profile picture display problem on the user profile page.
+   - Adjust the navigation bar to prompt users to log in if they are not logged in.
+   - Continue working on design enhancements.
+- Lab 13 has been completed, and the website is now operational.
+- Prepare questions for the TA Scrum Call and ensure readiness for the meeting to present our entire application.
+- Review remaining tasks and ensure clarity on what needs to be accomplished.
+- Dedicate efforts to the project until Sunday, then convene to prepare for the presentation.
 
 TA Scrum Call: April 18th, 2024 (15 Minutes)
-Add padding to the user profiles
-Add an ability to change password
-Classes to take next in hierarchy
-Add Prerequisites to SQL
-Users should not be able to enroll to a class if they dont have pre-reqs
-Classes already enrolled in show up in user profile
-When you’re not logged in, you should not be able to see any navbar options
-Once you’re registered and logged in, you can see navbar
-Display classes taken, classes you’re going to take, and current classes
-Deploy the app and send link to TA
+- Enhance user profile display by adding padding.
+- Implement a feature allowing users to change their passwords.
+- Establish a hierarchy for classes to take next.
+- Include prerequisites for SQL classes.
+- Implement a restriction preventing users from enrolling in classes without meeting prerequisites.
+- Display enrolled classes in the user profile.
+- Hide navbar options when users are not logged in.
+- Enable navbar visibility upon registration and login.
+- Present sections for displaying taken classes, upcoming classes, and current enrollments.
+- Deploy the application and share the link with the TA.
