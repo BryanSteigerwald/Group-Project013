@@ -173,6 +173,7 @@ app.get('/classes', (req, res) => {
 
 
 app.get('/home', (req, res) => {
+  console.log(req.session);
   res.render('pages/home');
 });
 
@@ -287,6 +288,7 @@ app.post('/login', async (req, res) => {
 
       req.session.user = user;
       req.session.save();
+      console.log('asdfghjkl');
       return res.status(200).redirect('/home');
     } else {
       return res.status(401).render('pages/login', { error: 'Incorrect password' });
