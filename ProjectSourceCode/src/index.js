@@ -190,12 +190,23 @@ app.get('/userprofile', async (req, res) => {
     // Fetch user details from user_details table
     const userDetails = await db.oneOrNone('SELECT * FROM user_details WHERE username = $1', username);
 
+    // Fetch user classes from user_classes table
+    const userClasses = await db.any('SELECT class_id FROM user_classes WHERE username = $1', username);
+
+    // Fetch class names associated with the user
+    const classNames = await Promise.all(userClasses.map(async (classItem) => {
+      const classId = classItem.class_id;
+      const className = await db.one('SELECT name FROM classes WHERE class_id = $1', classId);
+      return className;
+    }));
+
     // If user details found, render the userprofile page
     if (userDetails) {
       res.status(200).render('pages/userprofile', {
         username: req.session.user.username,
         email: userDetails.email,
-        age: userDetails.age
+        age: userDetails.age,
+        classes: classNames 
       });
     } else {
       res.status(404).render('pages/error', { message: 'User not found' });
@@ -205,6 +216,8 @@ app.get('/userprofile', async (req, res) => {
     res.status(500).render('pages/error', { message: 'Internal server error' });
   }
 });
+
+
 
 // *****************************************************
 // <!--Dummy API -->
@@ -401,7 +414,7 @@ app.post('/userprofile', async (req, res) => {
     if (newPassword) {
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       await db.none('UPDATE users SET password = $1 WHERE username = $2', [hashedPassword, username]);
-    }
+    } 
 
     // Send a response indicating success
     res.status(200).json({ message: 'User profile updated successfully' });
@@ -410,7 +423,6 @@ app.post('/userprofile', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
-
 
 // -------------------------------------  ROUTES for logout.hbs   ----------------------------------------------
 app.get('/logout', (req, res) => {

@@ -30,6 +30,15 @@
                 <!-- Profile picture will be displayed here -->
                 <img id="profilePicture" src="{{ profilePicture }}">
             </div>
+            <!-- Display user classes here -->
+            <div id="userClasses">
+            <h2>Classes Enrolled</h2>
+            <ul>
+                {{#each classes}}
+                <li>{{this.name}}</li> <!-- Assuming 'name' is the column name for class names in the classes table -->
+                {{/each}}
+            </ul>
+            </div>
         </div>
     </div>
 
