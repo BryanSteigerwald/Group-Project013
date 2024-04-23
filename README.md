@@ -12,8 +12,10 @@ Tiya Saini, Bryan Steigerwald, Eliot Pontarelli, Jonathan Tang, Nicole Nageli
 ## Prerequisites To Run The Application
 
 ## How To Run The Application Locally
+1. git clone git@github.com:BryanSteigerwald/Group-Project013.git
+2. cd 
 
 ## How To Run The Tests
 
 ## Link To The Deployed Application
-http://recitation-13-team-04.eastus.cloudapp.azure.com:3000/
+http://recitation-13-team-04.eastus.cloudapp.azure.com:3000/ (update with Render's Link tomorrow.)
