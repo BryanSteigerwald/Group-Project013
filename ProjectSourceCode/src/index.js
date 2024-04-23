@@ -117,12 +117,6 @@ const fetchRecommendedClasses = (req, res, next) => {
         FROM user_classes uc2 
         WHERE uc2.class_id = c.class_id
     )
-    OR EXISTS (
-        SELECT 1
-        FROM user_classes uc3
-        WHERE uc3.username = $1
-        AND uc3.class_id = p.prereq_id
-    )
     LIMIT 7;
     `;
     
@@ -390,7 +384,7 @@ app.post('/classes/add', async (req, res) => {
             SELECT *
             FROM classes
             WHERE class_id = $1
-            AND class_id NOT IN (
+            AND class_id IN (
                 SELECT class_id
                 FROM prerequisites
                 WHERE prereq_id NOT IN (
