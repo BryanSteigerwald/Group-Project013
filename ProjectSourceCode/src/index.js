@@ -218,11 +218,11 @@ app.get('/userprofile', async (req, res) => {
         classes: classNames
       });
     } else {
-      res.status(404).render('pages/error', { message: 'User not found' });
+      res.status(404).render('pages/error', { error: 'User not found' });
     }
   } catch (error) {
     console.error('Error fetching user profile:', error);
-    res.status(500).render('pages/error', { message: 'Internal server error' });
+    res.status(500).render('pages/error', { error: 'Internal server error' });
   }
 });
 
@@ -240,20 +240,27 @@ app.post('/register', async (req, res) => {
   const password = req.body.password;
 
   if (!username || !password) {
-    return res.status(400).send({ message: 'Username and password cannot be blank' });
+    return res.status(400).render('pages/register',{ error: 'Username and password cannot be blank' });
   }
 
   const hash = await bcrypt.hash(req.body.password, 10);
 
   if (hash.err) { 
     console.log('error');
-    res.status(400).send({ message: 'Error occurred while hashing password' });
+    return res.status(400).render('pages/register', { error: 'Error occurred while hashing password' });
   }
   else {console.log('check');
 
+  const existingUserDetails = await db.oneOrNone('SELECT * FROM users WHERE username = $1', username);
+
+  if (existingUserDetails) {
+    console.log('error');
+    return res.status(400).render('pages/register', { error: 'Username already taken' });
+  }
   db.tx(async t=> {
     await t.any('INSERT INTO users (username, password) VALUES ($1, $2);', [req.body.username, hash]);
   })
+  req.session.message = 'User registered successfully';
   res.status(200).redirect('/login');
 
   }
@@ -298,7 +305,7 @@ app.post('/login', async (req, res) => {
       req.session.save();
       return res.status(200).redirect('/home');
     } else {
-      return res.status(401).render('pages/login', { error: 'Incorrect password' });
+      return res.status(401).render('pages/login', { error: 'Invalid login' });
     }
   } catch (error) {
     console.error('Error occurred while logging in:', error.message);
@@ -367,18 +374,17 @@ app.post('/classes/add', async (req, res) => {
       }
 
       const username = req.session.user.username;
+      let errorMessage = ''; // Initialize an empty error message string
 
       for (const classItem of classCart) {
           const { classId, className } = classItem;
 
-          // Check if class is already added for the user
           const existingClass = await db.oneOrNone('SELECT * FROM user_classes WHERE username = $1 AND class_id = $2', [username, classId]);
           if (existingClass) {
-              console.log(`Class ${classId} (${className}) already added`);
+              errorMessage += `Class ${classId} (${className}) already added<br>`;
               continue; // Skip to the next class
           }
           
-          //Check if user has prereqs for the class
           const non_added_prereqs = await db.oneOrNone(
             `
             SELECT *
@@ -395,10 +401,10 @@ app.post('/classes/add', async (req, res) => {
             )
             `,
             [classId, username]
-        );
-        
+          );
+          
           if (non_added_prereqs) {
-              console.log(`User does not have required prerequisites for ${classId} (${className})`);
+              errorMessage += `User does not have required prerequisites for ${classId} (${className})<br>`;
               continue; // Skip to the next class
           }
 
@@ -407,12 +413,17 @@ app.post('/classes/add', async (req, res) => {
           console.log(`Class ${classId} (${className}) added successfully`);
       }
 
-      res.status(200).send({ message: 'Classes added successfully' });
+      if (errorMessage) {
+          res.status(400).render('pages/home',{ error: errorMessage }); // Sending error messages
+      } else {
+          res.status(200).render('pages/home',{ message: 'Classes added successfully' });
+      }
   } catch (error) {
       console.error('Error occurred while adding classes to user_classes:', error);
-      res.status(500).send({ success: false, error: 'Internal server error' });
+      res.status(500).render('pages/home',{ success: false, error: 'Internal server error' });
   }
 });
+
 
 app.get('/classes/check', async (req, res) => {
   try {

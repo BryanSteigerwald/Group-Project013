@@ -1,5 +1,11 @@
+{{#if error}}
+  <div class="alert alert-danger" role="alert">
+    {{{error}}} <!-- Use triple braces to render HTML -->
+  </div>
+{{/if}}
+
 {{#if message}}
-  <div class="alert alert-{{#if error}}danger{{else}}success{{/if}}" role="alert">
-    {{ message }}
+  <div class="alert alert-success" role="alert">
+    {{message}}
   </div>
 {{/if}}
