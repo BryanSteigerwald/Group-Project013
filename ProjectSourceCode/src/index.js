@@ -329,10 +329,10 @@ app.get('/classes/search', (req, res) => {
 
     db.any(search_classes_query, [`%${searchTerm}%`])
         .then(classes => {
-            res.render('pages/classes', { classes, searchTerm });
+            res.render('pages/classes', { classes, searchTerm, loggedIn:true});
         })
         .catch(err => {
-            res.render('pages/error', { message: err.message });
+            res.render('pages/error', { message: err.message, loggedIn:true});
         });
 });
 
@@ -372,17 +372,18 @@ app.post('/classes/add', async (req, res) => {
       }
 
       const username = req.session.user.username;
-      let errorMessage = ''; // Initialize an empty error message string
 
       for (const classItem of classCart) {
           const { classId, className } = classItem;
 
+          // Check if class is already added for the user
           const existingClass = await db.oneOrNone('SELECT * FROM user_classes WHERE username = $1 AND class_id = $2', [username, classId]);
           if (existingClass) {
-              errorMessage += `Class ${classId} (${className}) already added<br>`;
+              console.log(`Class ${classId} (${className}) already added`);
               continue; // Skip to the next class
           }
           
+          //Check if user has prereqs for the class
           const non_added_prereqs = await db.oneOrNone(
             `
             SELECT *
@@ -399,10 +400,10 @@ app.post('/classes/add', async (req, res) => {
             )
             `,
             [classId, username]
-          );
-          
+        );
+        
           if (non_added_prereqs) {
-              errorMessage += `User does not have required prerequisites for ${classId} (${className})<br>`;
+              console.log(`User does not have required prerequisites for ${classId} (${className})`);
               continue; // Skip to the next class
           }
 
@@ -411,14 +412,10 @@ app.post('/classes/add', async (req, res) => {
           console.log(`Class ${classId} (${className}) added successfully`);
       }
 
-      if (errorMessage) {
-          res.status(400).render('pages/home',{ error: errorMessage }); // Sending error messages
-      } else {
-          res.status(200).render('pages/home',{ message: 'Classes added successfully' });
-      }
+      res.status(200).send({success: true, message: 'Classes added successfully' });
   } catch (error) {
       console.error('Error occurred while adding classes to user_classes:', error);
-      res.status(500).render('pages/home',{ success: false, error: 'Internal server error' });
+      res.status(500).send({ success: false, error: 'Internal server error' });
   }
 });
 

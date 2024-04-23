@@ -119,9 +119,11 @@ function enrollClasses() {
         $('#cart').modal('hide'); // Hide modal after successful enrollment
         classCart = [];
         localStorage.removeItem('classCart'); // Clear cart from local storage
+        $('#messageContainer').html('<div class="alert alert-success" role="alert">' + response.message + '</div>');
     },
     error: function(xhr, status, error) {
         console.error('Error enrolling classes:', error); // Log error message
+        $('#messageContainer').html('<div class="alert alert-danger" role="alert">' + response.error + '</div>');
     }
   });
 }
