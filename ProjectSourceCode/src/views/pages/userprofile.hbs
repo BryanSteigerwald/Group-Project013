@@ -2,6 +2,7 @@
     <title>User Profile</title>
 </head>
 
+
 <body>
     <div class="center-container">
         <div class="container-user">
@@ -9,12 +10,15 @@
                 <div class="col-md-8">
                     <h1>{{ username }}'s User Profile</h1>
 
+
                     <div id="profileData">
                         <span>Email: <span id="email" name="changeEmail">{{ email }}</span></span><br>
                         <span>Age: <span id="age" name="changeEmail">{{ age }}</span></span><br>
                     </div>
 
+
                     <button id="editDetailsBtn">Edit details</button>
+
 
                     <div id="editForm" class="hidden">
                         <input type="email-user" id="newEmail" name="newEmail" placeholder="New Email" required>
@@ -23,15 +27,9 @@
                         <br>
                         <input type="password-user" id="newPassword" name="newPassword" placeholder="New Password" required>
                         <br>
-                        <input type="file" id="newProfilePicture" name="newProfilePicture" accept="image/*" placeholder="New Profile Picture">
-                        <br>
                         <button id="saveChangesBtn">Save Changes</button>
                     </div>
                 </div>
-            </div>
-            <div class="row justify-content-center" id="profilePictureContainer">
-                <!-- Profile picture will be displayed here -->
-                <img id="profilePicture" src="{{ profilePicture }}">
             </div>
             <!-- Display user classes here -->
             <div id="userClasses">
@@ -45,6 +43,7 @@
         </div>
     </div>
 
+
     <script>
         document.getElementById('editDetailsBtn').addEventListener('click', function() {
             var editForm = document.getElementById('editForm');
@@ -55,33 +54,18 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('newProfilePicture').addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    const profilePictureContainer = document.getElementById('profilePictureContainer');
-                    profilePictureContainer.innerHTML = `<img src="${e.target.result}" alt="Profile Picture">`;
-                }
-                
-                reader.readAsDataURL(file);
-            });
-        });
-
 
         document.getElementById('saveChangesBtn').addEventListener('click', async function() {
             const newEmail = document.getElementById('newEmail').value;
             const newAge = document.getElementById('newAge').value;
-            const newProfilePicture = document.getElementById('newProfilePicture').files[0];
             const newPassword = document.getElementById('newPassword').value;
-            
+           
             const formData = {
                 newEmail: newEmail,
                 newAge: newAge,
-                newProfilePicture: newProfilePicture,
                 newPassword: newPassword
             };
+
 
             try {
                 const response = await fetch('/userprofile', {
@@ -91,6 +75,7 @@
                     },
                     body: JSON.stringify(formData)
                 });
+
 
                 if (response.ok) {
                     window.location.href = '/userprofile';

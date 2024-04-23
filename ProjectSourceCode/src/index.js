@@ -295,9 +295,8 @@ app.post('/login', async (req, res) => {
       if (!existingUserDetails) {
         const email = ""; 
         const age = null; 
-        const profile_picture = "/default_profile_picture.jpg";
      
-        await db.none('INSERT INTO user_details (username, email, age, profile_picture) VALUES ($1, $2, $3, $4)', [username, email, age, profile_picture]);
+        await db.none('INSERT INTO user_details (username, email, age) VALUES ($1, $2, $3)', [username, email, age]);
       }
 
 
@@ -305,14 +304,13 @@ app.post('/login', async (req, res) => {
       req.session.save();
       return res.status(200).redirect('/home');
     } else {
-      return res.status(401).render('pages/login', { error: 'Invalid login' });
+      return res.status(401).render('pages/login', { error: 'Incorrect password' });
     }
   } catch (error) {
     console.error('Error occurred while logging in:', error.message);
     res.status(500).render('pages/login', { error: 'Internal server error' });
   }
-});
-
+}); 
 
 const auth = (req, res, next) => {
   if (!req.session.user) {
@@ -449,16 +447,19 @@ app.get('/classes/check', async (req, res) => {
 app.post('/userprofile', async (req, res) => {
   try {
     const username = req.session.user.username;
-    const { newEmail, newAge, newPassword } = req.body; 
+    const { newEmail, newAge, newPassword } = req.body;
     console.log('Received JSON data:', { username, newEmail, newAge, newPassword });
 
+
     await db.none('UPDATE user_details SET email = $1, age = $2 WHERE username = $3', [newEmail, newAge, username]);
+
 
     // Update password if newPassword is provided
     if (newPassword) {
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       await db.none('UPDATE users SET password = $1 WHERE username = $2', [hashedPassword, username]);
-    } 
+    }
+
 
     // Send a response indicating success
     res.status(200).json({ message: 'User profile updated successfully' });
@@ -467,6 +468,7 @@ app.post('/userprofile', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 
 // -------------------------------------  ROUTES for logout.hbs   ----------------------------------------------
 app.get('/logout', (req, res) => {
