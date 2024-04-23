@@ -1,7 +1,3 @@
-INSERT INTO prerequisites VALUES ('CSCI 1300','CSCI 2275');
-
-
-
 INSERT INTO classes (class_id, name, description, info) VALUES ('CSCI 1000', 'CSCI 1000 (1) Computer Science as a Field of Work and Study', 'Introduces curriculum, learning techniques, time management and career opportunities in Computer Science. Includes presentations from alumni and others with relevant educational and professional experience.', 'Equivalent - Duplicate Degree Credit Not Granted: CSPB 1000
 Requisites: Restricted to students with 0-26 credits (Freshmen) Computer Science (CSEN-BSCS or CSEN-BA) or Engineering Open Option (XXEN) majors only.
 Additional Information: Departmental Category: General Computer Science');
@@ -502,3 +498,4 @@ Requisites: Restricted to graduate students only.
 Additional Information: Departmental Category: General Computer Science');
 
 
+INSERT INTO prerequisites (prereq_id, class_id) VALUES ('CSCI 1300','CSCI 2270');
