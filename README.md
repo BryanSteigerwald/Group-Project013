@@ -30,5 +30,5 @@ Our application leverages Node.js, npm, and Git, but worry not about pre-install
 2. Configure Docker Compose: Open the docker-compose.yaml file.
 3. Adjust Test Configuration: Look for the to-do comment at the bottom of the file. Modify it as indicated to execute the tests.
 
-## Access the Deployed Application
+## Access the Deployed Application 
 http://recitation-13-team-04.eastus.cloudapp.azure.com:3000/
