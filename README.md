@@ -1,21 +1,34 @@
-# Group Project: CU Boulder Class Finder
-## Application Description
-Our application, named "FindMyClass", is designed to streamline the process of exploring and validating courses available in the University of Colorado Boulder (CU Boulder) database. With the ever-expanding array of courses offered by academic institutions, navigating through them to find relevant ones can be a daunting task. FindMyClass aims to alleviate this challenge by providing users with a user-friendly interface to search for any class available in the CU Boulder database.
+# FindMyClass: Simplify Your CU Boulder Course Search
 
-Through FindMyClass, users can effortlessly search for courses by entering keywords, course codes, or specific criteria. The application will then retrieve and display comprehensive information about each course, including its title, description, instructor, schedule, prerequisites, and any other relevant details. This functionality not only simplifies the process of finding courses but also enables users to make well-informed decisions about their academic pursuits. Whether students are planning their course schedules, exploring new subjects, or seeking prerequisites for advanced classes, FindMyClass will serve as a valuable tool in their academic journey.
+## Application Overview
+Our application, 'FindMyClass,' is diligently crafted to facilitate the exploration and validation of courses housed within the University of Colorado Boulder (CU Boulder) database. In today's educational landscape, where academic institutions offer an ever-expanding catalog of courses, navigating this breadth of offerings can present a daunting challenge. FindMyClass endeavors to mitigate this challenge by furnishing users with an intuitive interface for perusing the entirety of the CU Boulder course catalog.
 
-## Contributors
+Through the seamless functionality of FindMyClass, users can effortlessly sift through courses by employing various search parameters, such as keywords, course codes, or specific criteria. Upon submission, the application promptly retrieves and presents a comprehensive array of information pertaining to each course, encompassing details such as title, description, instructor, schedule, prerequisites, and any other pertinent data. This robust feature set not only simplifies the process of course discovery but also empowers users to make informed decisions regarding their academic pursuits.
+
+FindMyClass stands ready to accommodate a diverse array of user needs, whether students are mapping out their semester schedules, delving into new subjects, or identifying prerequisites for advanced coursework. As such, it represents an invaluable asset in every student's academic journey, facilitating efficiency, clarity, and informed decision-making.
+
+## Collaborators in the Group Project
 Tiya Saini, Bryan Steigerwald, Eliot Pontarelli, Jonathan Tang, Nicole Nageli
 
-## Technology Stack Used
+## Comprehensive Technology Stack Utilized
+In our innovative ecosystem, the frontend is meticulously crafted with a blend of Handlebars, JavaScript, Python, CSS, and HTML, ensuring a seamless and captivating user experience. Meanwhile, the backend architecture predominantly relies on Express, augmented with the robust capabilities of PostgreSQL and SQL databases. To streamline deployment and foster scalability, Docker serves as the cornerstone for containerization, empowering our system with efficiency and flexibility. Furthermore, our commitment to quality assurance shines through with the utilization of Mocha and Chai for comprehensive user testing, ensuring the reliability and performance of our platform exceed expectations.
 
 ## Prerequisites To Run The Application
+Our application leverages Node.js, npm, and Git, but worry not about pre-installing these—they're already bundled. No prior downloads are necessary. We've streamlined the setup process, ensuring all required software is included. Simply fire up your preferred browser and terminal on any compatible operating system. That's all you need to get started.
 
-## How To Run The Application Locally
-1. git clone git@github.com:BryanSteigerwald/Group-Project013.git
-2. cd 
+## Running the Application Locally
+1. Install Docker: Ensure Docker is installed on your system.
+2. Clone the Repository: Clone the project repository by running git clone git@github.com:BryanSteigerwald/Group-Project013.git.
+3. Navigate to Project Directory: Move into the cloned repository directory by executing cd Group-Project013/.
+4. Enter Source Code Directory: Navigate to the source code directory by running cd ProjectSourceCode/.
+5. Start Containers: Launch all containers defined in the Docker Compose file using the command docker compose up.
+6. Access the Application: Open your preferred web browser and go to "http://localhost:3000/". This will direct you to our Register page.
+7. Explore the Application: You should now be able to seamlessly view and interact with our application.
 
-## How To Run The Tests
+## Running the Tests
+1. Locate Test Files: Find the test files in server.spec.js.
+2. Configure Docker Compose: Open the docker-compose.yaml file.
+3. Adjust Test Configuration: Look for the to-do comment at the bottom of the file. Modify it as indicated to execute the tests.
 
-## Link To The Deployed Application
-http://recitation-13-team-04.eastus.cloudapp.azure.com:3000/ (update with Render's Link tomorrow.)
+## Access the Deployed Application
+http://recitation-13-team-04.eastus.cloudapp.azure.com:3000/
