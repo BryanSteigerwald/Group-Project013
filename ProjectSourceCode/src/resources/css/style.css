@@ -8,6 +8,10 @@ body {
     text-align: center;
 }
 
+.container-trend {
+    margin-top: 20px;
+}
+
 .container {
     text-align: center;
     padding: 20px;
